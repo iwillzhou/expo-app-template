@@ -1,0 +1,156 @@
+name: Reusable EAS Build Workflow
+
+on:
+  workflow_call:
+    inputs:
+      app_env:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - testing
+          - development
+      build_type:
+        description: 'BuildType (apk,aab,ipa)'
+        required: false
+        default: 'apk,ipa'
+        type: string
+    secrets:
+      EXPO_TOKEN:
+        description: 'An API acesss token for Expo'
+
+jobs:
+  android-apk-build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    if: contains(inputs.build_type, 'apk')
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 'latest'
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          packager: pnpm
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build Android app
+        run: eas build --platform android --profile ${{ inputs.app_env }} --local --output ${{ github.workspace }}/app-release.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: ${{ github.workspace }}/app-release.apk
+
+  android-aab-build:
+    name: Build Android AAB
+    runs-on: ubuntu-latest
+    if: contains(inputs.build_type, 'aab')
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+        node-version: '22'
+
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+        version: 'latest'
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+        java-version: '17'
+        distribution: 'temurin'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+        eas-version: latest
+        packager: pnpm
+        token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build Android app
+        run: eas build --platform android --profile ${{ inputs.app_env }}-aab --local --output ${{ github.workspace }}/app-release.aab
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+        name: android-aab
+        path: ${{ github.workspace }}/app-release.aab
+
+  ios-ipa-build:
+    name: Build iOS IPA
+    runs-on: macos-latest
+    if: contains(inputs.build_type, 'ipa')
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 'latest'
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          packager: pnpm
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build iOS app
+        run: eas build --platform ios --profile ${{ inputs.app_env }} --local --output ${{ github.workspace }}/app-release.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios
+          path: ${{ github.workspace }}/app-release.ipa

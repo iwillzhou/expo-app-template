@@ -1,0 +1,15 @@
+name: Build for Staging
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-eas.yml
+    with:
+      app_env: staging
+      build_type: apk,ipa
+    secrets:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

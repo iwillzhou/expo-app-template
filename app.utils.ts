@@ -1,7 +1,8 @@
 import 'ts-node/register';
 
-const appName = 'myapp';
-const appID = 'com.onepixel.myapp';
+const appName = 'Netflix';
+const appID = 'com.onepixel.netflix';
+const projectId = 'bebdcc56-dc37-4915-a305-1d03b03f700a';
 
 const isProduction = process.env.APP_ENV === 'production';
 
@@ -12,9 +13,9 @@ export const getAppName = () => {
 
 export const getAppScheme = () => appName;
 
-export const getAppSlug = () => appID;
-
 export const getUniqueIdentifier = () => {
     const appIDSuffix = isProduction ? '' : `.${process.env.APP_ENV}`;
     return `${appID}${appIDSuffix}`;
 };
+
+export const getProjectId = () => projectId;

@@ -1,0 +1,56 @@
+{
+    "cli": {
+        "version": ">= 14.1.0",
+        "appVersionSource": "remote"
+    },
+    "build": {
+        "base": {
+            "env": {
+                "GRADLE_OPTS": "-Dorg.gradle.jvmargs='-Xmx14g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8' -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false"
+            },
+            "android": {
+                "buildType": "apk"
+            }
+        },
+        "development": {
+            "extends": "base",
+            "developmentClient": true,
+            "env": {
+                "APP_ENV": "development"
+            },
+            "ios": {
+                "simulator": true
+            }
+        },
+        "testing": {
+            "extends": "base",
+            "env": {
+                "APP_ENV": "testing"
+            }
+        },
+        "staging": {
+            "extends": "base",
+            "autoIncrement": true,
+            "env": {
+                "APP_ENV": "staging"
+            }
+        },
+        "production": {
+            "extends": "base",
+            "autoIncrement": true,
+            "env": {
+                "APP_ENV": "production"
+            }
+        },
+        "production-aab": {
+            "extends": "production",
+            "android": {
+                "buildType": "app-bundle"
+            }
+        }
+    },
+
+    "submit": {
+        "production": {}
+    }
+}

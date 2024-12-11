@@ -1,10 +1,10 @@
 import 'ts-node/register';
 import { ExpoConfig } from 'expo/config';
-import { getAppName, getAppScheme, getAppSlug, getUniqueIdentifier } from './app.utils';
+import { getAppName, getAppScheme, getProjectId, getUniqueIdentifier } from './app.utils';
 
 const config: ExpoConfig = {
     name: getAppName(),
-    slug: getAppSlug(),
+    slug: 'expo-app-template',
     version: '1.0.0',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
@@ -41,8 +41,12 @@ const config: ExpoConfig = {
     ],
     experiments: {
         typedRoutes: true
+    },
+    extra: {
+        eas: {
+            projectId: getProjectId()
+        }
     }
 };
 
 export default config;
-
