@@ -19,3 +19,5 @@ export const getUniqueIdentifier = () => {
 };
 
 export const getProjectId = () => projectId;
+
+export const getUpdatesUrl = () => `${process.env.UPDATES_HOSTNAME}/api/manifest?id=${projectId}&channel=${process.env.APP_ENV}`;

@@ -1,6 +1,6 @@
 import 'ts-node/register';
 import { ExpoConfig } from 'expo/config';
-import { getAppName, getAppScheme, getProjectId, getUniqueIdentifier } from './app.utils';
+import { getAppName, getAppScheme, getProjectId, getUniqueIdentifier, getUpdatesUrl } from './app.utils';
 
 const config: ExpoConfig = {
     name: getAppName(),
@@ -41,6 +41,12 @@ const config: ExpoConfig = {
     ],
     experiments: {
         typedRoutes: true
+    },
+    updates: {
+        url: getUpdatesUrl()
+    },
+    runtimeVersion: {
+        policy: 'fingerprint'
     },
     extra: {
         eas: {

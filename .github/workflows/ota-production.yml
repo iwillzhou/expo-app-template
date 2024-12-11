@@ -1,0 +1,27 @@
+name: OTA Update for Production
+
+on:
+  push:
+    branches:
+      - hotfix/*
+
+jobs:
+  android-update:
+    uses: ./.github/workflows/ota-expo.yml
+    with:
+      channel: production
+      platform: android
+    secrets:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      UPDATES_HOSTNAME: ${{ secrets.UPDATES_HOSTNAME }}
+      VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
+
+  ios-update:
+    uses: ./.github/workflows/ota-expo.yml
+    with:
+      channel: production
+      platform: ios
+    secrets:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      UPDATES_HOSTNAME: ${{ secrets.UPDATES_HOSTNAME }}
+      VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
