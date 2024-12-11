@@ -4,15 +4,10 @@ on:
   workflow_call:
     inputs:
       app_env:
-        description: 'Deployment environment'
-        required: true
+        description: 'Deployment environment (development / testing / staging / production)'
+        required: false
         default: 'production'
-        type: choice
-        options:
-          - production
-          - staging
-          - testing
-          - development
+        type: string
       build_type:
         description: 'BuildType (apk,aab,ipa)'
         required: false
