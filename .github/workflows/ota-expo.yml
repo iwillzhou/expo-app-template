@@ -70,23 +70,23 @@ jobs:
       - name: Get eas projectid
         run: echo "PROJECT_ID=$(jq -r '.extra.eas.projectId' dist/expoConfig.json)" >> $GITHUB_ENV
 
-      - name: Generate Unix Timestamp
-        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
-
-      - name: Get the path prefix
+      - name: Get the update bundle path prefix
         if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' && env.TIMESTAMP != '' }}
         run: |
-          PATH_PREFIX=$PROJECT_ID/$CHANNEL/${{ inputs.platform }}/$FINGERPRINT/$TIMESTAMP
-          echo "PATH_PREFIX=$PATH_PREFIX"  >> $GITHUB_ENV
-          echo "The path prefix is $PATH_PREFIX"
+          UPDATE_BUNDLE_PATH_PREFIX=$PROJECT_ID/$CHANNEL/${{ inputs.platform }}/$FINGERPRINT
+          echo "UPDATE_BUNDLE_PATH_PREFIX=$UPDATE_BUNDLE_PATH_PREFIX"  >> $GITHUB_ENV
+          echo "The update bundle path prefix is $UPDATE_BUNDLE_PATH_PREFIX"
+
+      - name: Compress and list files
+        run: |
+          tar -czvf updates.tar.gz dist
+          ls -lh updates.tar.gz
 
       - name: Upload bundles to Vercel Blob Storage
         run: |
-          for file in $(find ./dist -type f); do
-            path=$(echo "$file" | sed 's|^./dist/||')
-            echo "Uploading file: $path"
-            curl -X POST "$UPDATES_HOSTNAME/api/upload" \
+          echo "Uploading file..."
+          curl -X POST "$UPDATES_HOSTNAME/api/upload" \
               -H "Authorization: Bearer $VERCEL_BLOB_READ_WRITE_TOKEN" \
-              -F "file=@$file" \
-              -F "path=$PATH_PREFIX/$path"
-          done
+              -F "file=@updates.tar.gz" \
+              -F "path=$UPDATE_BUNDLE_PATH_PREFIX"
+          echo "End of Uploading file."
