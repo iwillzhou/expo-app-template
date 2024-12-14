@@ -71,7 +71,7 @@ jobs:
         run: echo "PROJECT_ID=$(jq -r '.extra.eas.projectId' dist/expoConfig.json)" >> $GITHUB_ENV
 
       - name: Get the update bundle path prefix
-        if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' && env.TIMESTAMP != '' }}
+        if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' }}
         run: |
           UPDATE_BUNDLE_PATH_PREFIX=$PROJECT_ID/$CHANNEL/${{ inputs.platform }}/$FINGERPRINT
           echo "UPDATE_BUNDLE_PATH_PREFIX=$UPDATE_BUNDLE_PATH_PREFIX"  >> $GITHUB_ENV
