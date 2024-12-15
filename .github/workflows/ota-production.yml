@@ -9,19 +9,17 @@ jobs:
   android-update:
     uses: ./.github/workflows/ota-expo.yml
     with:
-      channel: production
       platform: android
+      app-env: production
+      hostname: ${{ vars.HOSTNAME }}
     secrets:
-      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-      UPDATES_HOSTNAME: ${{ secrets.UPDATES_HOSTNAME }}
       VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
 
   ios-update:
     uses: ./.github/workflows/ota-expo.yml
     with:
-      channel: production
       platform: ios
+      app-env: production
+      hostname: ${{ vars.HOSTNAME }}
     secrets:
-      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-      UPDATES_HOSTNAME: ${{ secrets.UPDATES_HOSTNAME }}
       VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}

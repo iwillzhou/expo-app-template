@@ -3,16 +3,18 @@ name: Reusable EAS Build Workflow
 on:
   workflow_call:
     inputs:
-      app_env:
+      app-env:
         description: 'Deployment environment (development / testing / staging / production)'
         required: false
         default: 'production'
         type: string
-      build_type:
+      build-type:
         description: 'BuildType (apk,aab,ipa)'
         required: false
         default: 'apk,ipa'
         type: string
+      hostname:
+        description: 'An API endpoint for uplading to Vercel blob storage'
     secrets:
       EXPO_TOKEN:
         description: 'An API acesss token for Expo'
@@ -21,7 +23,10 @@ jobs:
   android-apk-build:
     name: Build Android APK
     runs-on: ubuntu-latest
-    if: contains(inputs.build_type, 'apk')
+    if: contains(inputs.build-type, 'apk')
+    env:
+      HOSTNAME: ${{ inputs.hostname }}
+      APP_ENV: ${{ inputs.app-env }}
 
     steps:
       - name: Checkout repo
@@ -57,7 +62,7 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build --platform android --profile ${{ inputs.app_env }} --local --output ${{ github.workspace }}/app-release.apk
+        run: eas build --platform android --profile $APP_ENV --local --output ${{ github.workspace }}/app-release.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -68,7 +73,7 @@ jobs:
   android-aab-build:
     name: Build Android AAB
     runs-on: ubuntu-latest
-    if: contains(inputs.build_type, 'aab')
+    if: contains(inputs.build-type, 'aab')
 
     steps:
       - name: Checkout repo
@@ -104,7 +109,7 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build --platform android --profile ${{ inputs.app_env }}-aab --local --output ${{ github.workspace }}/app-release.aab
+        run: eas build --platform android --profile $APP_ENV-aab --local --output ${{ github.workspace }}/app-release.aab
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
@@ -115,7 +120,7 @@ jobs:
   ios-ipa-build:
     name: Build iOS IPA
     runs-on: macos-latest
-    if: contains(inputs.build_type, 'ipa')
+    if: contains(inputs.build-type, 'ipa')
 
     steps:
       - name: Checkout repo
@@ -142,7 +147,7 @@ jobs:
         run: pnpm i
 
       - name: Build iOS app
-        run: eas build --platform ios --profile ${{ inputs.app_env }} --local --output ${{ github.workspace }}/app-release.ipa
+        run: eas build --platform ios --profile $APP_ENV --local --output ${{ github.workspace }}/app-release.ipa
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4

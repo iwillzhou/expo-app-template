@@ -9,7 +9,9 @@ jobs:
   build:
     uses: ./.github/workflows/build-eas.yml
     with:
-      app_env: development
-      build_type: apk,ipa
+      app-env: development
+      build-type: apk,ipa
+      hostname: ${{ vars.HOSTNAME }}
     secrets:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
