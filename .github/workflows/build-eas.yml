@@ -76,6 +76,9 @@ jobs:
     name: Build Android AAB
     runs-on: ubuntu-latest
     if: contains(inputs.build-type, 'aab')
+    env:
+      HOSTNAME: ${{ inputs.hostname }}
+      APP_ENV: ${{ inputs.app-env }}
 
     steps:
       - name: Checkout repo
@@ -123,6 +126,9 @@ jobs:
     name: Build iOS IPA
     runs-on: macos-latest
     if: contains(inputs.build-type, 'ipa')
+    env:
+      HOSTNAME: ${{ inputs.hostname }}
+      APP_ENV: ${{ inputs.app-env }}
 
     steps:
       - name: Checkout repo
