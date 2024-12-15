@@ -3,30 +3,29 @@ name: Reusable Expo OTA Updates Workflow
 on:
   workflow_call:
     inputs:
-      channel:
-        description: 'staging / production'
-        required: true
+      app-env:
+        description: 'Deployment environment (staging / production)'
+        required: false
+        default: 'production'
         type: string
       platform:
         description: 'android or ios'
         required: true
         type: string
-    secrets:
-      EXPO_TOKEN:
-        description: 'An API acesss token for Expo'
-      UPDATES_HOSTNAME:
+      hostname:
         description: 'An API endpoint for uplading to Vercel blob storage'
+        required: true
+        type: string
+    secrets:
       VERCEL_BLOB_READ_WRITE_TOKEN:
         description: 'An API acesss token for Vercel blob storage'
 
 jobs:
   update:
-    name: Expo Update
     runs-on: ubuntu-latest
     env:
-      CHANNEL: ${{ inputs.channel }}
-      APP_ENV: ${{ inputs.channel }}
-      UPDATES_HOSTNAME: ${{ secrets.UPDATES_HOSTNAME }}
+      APP_ENV: ${{ inputs.app-env }}
+      HOSTNAME: ${{ inputs.hostname }}
       VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
 
     steps:
@@ -73,7 +72,7 @@ jobs:
       - name: Get the update bundle path prefix
         if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' }}
         run: |
-          UPDATE_BUNDLE_PATH_PREFIX=$PROJECT_ID/$CHANNEL/${{ inputs.platform }}/$FINGERPRINT
+          UPDATE_BUNDLE_PATH_PREFIX=$PROJECT_ID/$APP_ENV/${{ inputs.platform }}/$FINGERPRINT
           echo "UPDATE_BUNDLE_PATH_PREFIX=$UPDATE_BUNDLE_PATH_PREFIX"  >> $GITHUB_ENV
           echo "The update bundle path prefix is $UPDATE_BUNDLE_PATH_PREFIX"
 
@@ -85,7 +84,7 @@ jobs:
       - name: Upload bundles to Vercel Blob Storage
         run: |
           echo "Uploading file..."
-          curl -X POST "$UPDATES_HOSTNAME/api/upload" \
+          curl -X POST "$HOSTNAME/api/upload" \
               -H "Authorization: Bearer $VERCEL_BLOB_READ_WRITE_TOKEN" \
               -F "file=@updates.tar.gz" \
               -F "path=$UPDATE_BUNDLE_PATH_PREFIX"
