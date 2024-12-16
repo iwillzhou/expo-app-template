@@ -2,12 +2,14 @@ import { Fragment } from 'react';
 import { View } from 'react-native';
 import { useTheme } from 'src/hooks/theme';
 import { THEMES } from 'src/constants/theme';
+import { useTranslation } from 'react-i18next';
 import { TickStroke } from 'src/components/icons';
 import { ColorSchemeSetting } from 'src/types/theme';
 import { ThemedView } from 'src/components/themed-view';
 import { Text, Button, Separator } from 'src/components/ui';
 
 export default function DarkModeSetting() {
+    const { t } = useTranslation('theme');
     const { theme, colorSchemeSetting, setColorSchemeSetting, setTheme } = useTheme();
 
     return (
@@ -21,7 +23,7 @@ export default function DarkModeSetting() {
                             className="flex-row justify-between native:h-14"
                             onPress={() => setColorSchemeSetting(setting as ColorSchemeSetting)}
                         >
-                            <Text className="font-normal">{setting}</Text>
+                            <Text className="font-normal">{t(setting)}</Text>
                             {setting === colorSchemeSetting && <TickStroke className="text-foreground" />}
                         </Button>
                     </Fragment>
@@ -36,7 +38,7 @@ export default function DarkModeSetting() {
                             className="flex-row justify-between native:h-14"
                             onPress={() => setTheme(value)}
                         >
-                            <Text className="font-normal">{value}</Text>
+                            <Text className="font-normal">{t(value)}</Text>
                             {value === theme && <TickStroke className="text-foreground" />}
                         </Button>
                     </Fragment>

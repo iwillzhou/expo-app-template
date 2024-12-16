@@ -1,0 +1,94 @@
+{
+    "CFBundleDisplayName": "Netflix",
+    "NSContactsUsageDescription": "An video app",
+    "common": {
+        "home": "Home",
+        "profile": "Profile",
+        "settings": "Settings",
+        "language": "Language",
+        "darkMode": "Dark mode"
+    },
+    "theme": {
+        "system": "Follow System",
+        "light": "Light",
+        "dark": "Dark",
+        "zinc": "Zinc",
+        "orange": "Orange",
+        "blue": "Blue",
+        "violet": "Violet"
+    },
+    "settings": {
+        "account": "Account",
+        "general": "General",
+        "notification": "Notification",
+        "language": "Language",
+        "darkMode": "Dark mode",
+        "privacy": "Privacy policies",
+        "about": "About",
+        "switchAccount": "Switch Account",
+        "logout": "Log out"
+    },
+    "auth": {
+        "log_in": {
+            "title": "Log in to your account",
+            "email_placeholder": "Email",
+            "password_placeholder": "Password",
+            "forgot_password": "Forgot password?",
+            "submit_btn": "Log In",
+            "sign_up_prefix": "Don't have an account?",
+            "sign_up_link": "Sign Up"
+        },
+        "sign_up": {
+            "title": "Create an new account",
+            "email_placeholder": "Email",
+            "username_placeholder": "Username",
+            "password_placeholder": "Password",
+            "submit_btn": "Sign Up",
+            "sign_in_prefix": "Already have an account?",
+            "sign_in_link": "Log In"
+        },
+        "sign_up_otp": {
+            "title": "OTP Verification",
+            "desc": "Enter the verification code we just sent on your email address",
+            "submit_btn": "Verify"
+        },
+        "sign_up_success": {
+            "title": "Sign up successfully!",
+            "submit_btn": "Back to Login"
+        },
+        "forgot_password": {
+            "title": "Forgot password",
+            "desc": "Enter your email account to reset password",
+            "email_placeholder": "Email",
+            "submit_btn": "Continue"
+        },
+        "forgot_password_otp": {
+            "title": "OTP Verification",
+            "desc": "Enter the verification code we just sent on your email address",
+            "submit_btn": "Verify"
+        },
+        "forgot_password_update": {
+            "title": "Create new password",
+            "desc": "Your new password must be unique from those previously used",
+            "password_placeholder": "New Password",
+            "confirm_password_placeholder": "Confirm Password",
+            "submit_btn": "Reset password"
+        },
+        "forgot_password_success": {
+            "title": "Password Changed! ",
+            "submit_btn": "Back to Login"
+        },
+        "social_login": {
+            "or_continue_with": "Or continue with"
+        },
+        "validations": {
+            "empty_email": "Email address is required",
+            "invalid_email": "Please enter valid email address",
+            "empty_password": "Password is required",
+            "password_min_len_error": "Password must be at least 8 characters long",
+            "password_pattern_error": "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character",
+            "otp_length_error": "Verification code must be 6 characters long",
+            "password_not_match_error": "Password don't match"
+        }
+    }
+}

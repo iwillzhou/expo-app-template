@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Link, Href } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { ThemedView } from 'src/components/themed-view';
 import { ArrowRightStroke } from 'src/components/icons';
 import { Text, Button, Separator } from 'src/components/ui';
@@ -12,40 +13,47 @@ interface SettingItem {
 }
 
 export default function Settings() {
+    const { t } = useTranslation('settings');
+
     const settings: SettingItem[][] = [
         [
             {
                 key: 'account',
-                title: 'Account',
+                title: t('account'),
                 href: '/'
             }
         ],
         [
             {
                 key: 'general',
-                title: 'general',
+                title: t('general'),
                 href: '/'
             },
             {
                 key: 'notification',
-                title: 'notification',
+                title: t('notification'),
                 href: '/'
             },
             {
+                key: 'language',
+                title: t('language'),
+                href: '/settings/language'
+            },
+            {
                 key: 'darkMode',
-                title: 'darkMode',
+                title: t('darkMode'),
                 href: '/settings/dark-mode'
             }
         ],
         [
             {
                 key: 'privacy',
-                title: 'privacy',
+                title: t('privacy'),
                 href: '/'
             },
             {
                 key: 'about',
-                title: 'about',
+                title: t('about'),
                 href: '/'
             }
         ]
@@ -69,10 +77,10 @@ export default function Settings() {
                 </View>
             ))}
             <Button variant="default">
-                <Text>switchAccount</Text>
+                <Text>{t('switchAccount')}</Text>
             </Button>
             <Button variant="outline">
-                <Text>logout</Text>
+                <Text>{t('logout')}</Text>
             </Button>
         </ThemedView>
     );

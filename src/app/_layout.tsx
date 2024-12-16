@@ -1,3 +1,4 @@
+import 'src/i18n';
 import 'src/styles/global.css';
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';

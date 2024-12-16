@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from 'src/components/ui';
 import { Stack, router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeftStroke } from 'src/components/icons';
 import { useNavigationTheme } from 'src/hooks/theme';
 
 export default function SettingsLayout() {
+    const { t } = useTranslation();
     const navigationTheme = useNavigationTheme();
     return (
         <Stack
@@ -21,8 +23,9 @@ export default function SettingsLayout() {
                 )
             }}
         >
-            <Stack.Screen name="index" options={{ title: 'Setting' }} />
-            <Stack.Screen name="dark-mode" options={{ title: 'Dark mode' }} />
+            <Stack.Screen name="index" options={{ title: t('settings') }} />
+            <Stack.Screen name="language" options={{ title: t('language') }} />
+            <Stack.Screen name="dark-mode" options={{ title: t('darkMode') }} />
         </Stack>
     );
 }

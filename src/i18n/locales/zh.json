@@ -1,0 +1,94 @@
+{
+    "CFBundleDisplayName": "奈飞",
+    "NSContactsUsageDescription": "一个视频应用",
+    "common": {
+        "home": "首页",
+        "profile": "我的",
+        "settings": "设置",
+        "language": "语言",
+        "darkMode": "深色模式"
+    },
+    "theme": {
+        "system": "跟随系统",
+        "light": "浅色模式",
+        "dark": "深色模式",
+        "zinc": "灰色",
+        "orange": "橙色",
+        "blue": "蓝色",
+        "violet": "紫色"
+    },
+    "settings": {
+        "account": "账户和安全",
+        "general": "通用",
+        "notification": "消息通知",
+        "language": "语言",
+        "darkMode": "深色模式",
+        "privacy": "隐私政策",
+        "about": "关于",
+        "switchAccount": "切换账户",
+        "logout": "退出"
+    },
+    "auth": {
+        "log_in": {
+            "title": "登录",
+            "email_placeholder": "邮箱",
+            "password_placeholder": "密码",
+            "forgot_password": "忘记密码？",
+            "submit_btn": "登录",
+            "sign_up_prefix": "还没有账号？",
+            "sign_up_link": "注册"
+        },
+        "sign_up": {
+            "title": "创建新的账号",
+            "email_placeholder": "邮箱",
+            "username_placeholder": "用户名",
+            "password_placeholder": "密码",
+            "submit_btn": "注册",
+            "sign_in_prefix": "已有账号?",
+            "sign_in_link": "登录"
+        },
+        "sign_up_otp": {
+            "title": "验证码",
+            "desc": "请输入我们刚刚发送到您邮箱的验证码",
+            "submit_btn": "确认"
+        },
+        "sign_up_success": {
+            "title": "注册成功！",
+            "submit_btn": "去登录"
+        },
+        "forgot_password": {
+            "title": "忘记密码",
+            "desc": "请输入与你的账号关联的邮件地址，以便您的更改密码",
+            "email_placeholder": "邮箱",
+            "submit_btn": "继续"
+        },
+        "forgot_password_otp": {
+            "title": "验证码",
+            "desc": "请输入我们刚刚发送到您邮箱的验证码",
+            "submit_btn": "确认"
+        },
+        "forgot_password_update": {
+            "title": "重置密码",
+            "desc": "新密码不能与旧密码相同",
+            "password_placeholder": "新密码",
+            "confirm_password_placeholder": "确认新密码",
+            "submit_btn": "重置密码"
+        },
+        "forgot_password_success": {
+            "title": "重置密码成功！",
+            "submit_btn": "去登录"
+        },
+        "social_login": {
+            "or_continue_with": "或"
+        },
+        "validations": {
+            "empty_email": "请输入邮箱地址",
+            "invalid_email": "请输入有效的邮箱地址",
+            "empty_password": "请输入密码",
+            "password_min_len_error": "密码最小长度8个字符",
+            "password_pattern_error": "密码至少要包含大小写字母、数字和特殊字符",
+            "otp_length_error": "请输入完整的验证码",
+            "password_not_match_error": "密码不一致"
+        }
+    }
+}

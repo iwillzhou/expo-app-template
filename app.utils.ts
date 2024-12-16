@@ -1,10 +1,12 @@
 import 'ts-node/register';
 
-const appName = 'Netflix';
+import en from './src/i18n/locales/en.json';
+
+const appName = en.CFBundleDisplayName;
 const appID = 'com.onepixel.netflix';
 const projectId = 'bebdcc56-dc37-4915-a305-1d03b03f700a';
 
-const isProduction = process.env.APP_ENV === 'production';
+export const isProduction = process.env.APP_ENV === 'production';
 
 export const getAppName = () => {
     const appNameSuffix = isProduction ? '' : `(${process.env.APP_ENV})`;
