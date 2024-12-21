@@ -39,6 +39,8 @@ export default function RootLayout() {
             routerUtils.reset('/onboarding');
         } else if (networkState.isConnected) {
             routerUtils.reset('/launch');
+        } else {
+            routerUtils.reset('/home');
         }
     };
 

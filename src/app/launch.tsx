@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text } from 'react-native';
+import { Text } from 'src/components/ui';
+import { ThemedView } from 'src/components/themed-view';
 
 export default function Launch() {
     const router = useRouter();
@@ -11,8 +12,8 @@ export default function Launch() {
         }, 3000);
     }, []);
     return (
-        <View className="flex-1 items-center justify-center">
+        <ThemedView className="flex-1 items-center justify-center">
             <Text>Launch</Text>
-        </View>
+        </ThemedView>
     );
 }

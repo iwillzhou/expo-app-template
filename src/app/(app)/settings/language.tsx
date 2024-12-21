@@ -2,13 +2,14 @@ import { Fragment } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { TickStroke } from 'src/components/icons';
+import { ThemedView } from 'src/components/themed-view';
 import { Button, Separator, Text } from 'src/components/ui';
 
 export default function LanguageSetting() {
     const { i18n } = useTranslation();
     const resource = i18n.services.resourceStore.data;
     return (
-        <View className="grid grid-flow-col p-4 gap-4">
+        <ThemedView className="grid grid-flow-col p-4 gap-4">
             <View className="bg-secondary rounded-lg">
                 {Object.keys(resource).map((lang, index) => (
                     <Fragment key={lang}>
@@ -24,6 +25,6 @@ export default function LanguageSetting() {
                     </Fragment>
                 ))}
             </View>
-        </View>
+        </ThemedView>
     );
 }

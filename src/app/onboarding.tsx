@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { View, Text } from 'react-native';
+import { Text } from 'src/components/ui';
+import { ThemedView } from 'src/components/themed-view';
 import { setIsFirstLaunch } from 'src/utils/is-first-launch';
 
 export default function Onboarding() {
@@ -13,8 +14,8 @@ export default function Onboarding() {
         }, 3000);
     }, []);
     return (
-        <View className="flex-1 items-center justify-center">
+        <ThemedView className="flex-1 items-center justify-center">
             <Text>Onboarding</Text>
-        </View>
+        </ThemedView>
     );
 }
