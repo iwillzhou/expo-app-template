@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { TickStroke } from 'src/components/icons';
 import { Button, Separator, Text } from 'src/components/ui';
 
 export default function LanguageSetting() {
@@ -18,6 +19,7 @@ export default function LanguageSetting() {
                             onPress={() => i18n.changeLanguage(lang)}
                         >
                             <Text className="font-normal">{resource[lang]?.display as string}</Text>
+                            {i18n.resolvedLanguage === lang && <TickStroke className="text-foreground" />}
                         </Button>
                     </Fragment>
                 ))}

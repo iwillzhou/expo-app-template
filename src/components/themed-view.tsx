@@ -1,4 +1,4 @@
-import { useTheme } from 'src/hooks/theme';
+import { useTheme } from 'src/hooks';
 import { View, ViewProps } from 'react-native';
 
 const ThemedView = ({ children, ...props }: ViewProps) => {

@@ -4,6 +4,7 @@ interface StorageInterface {
     getItem(key: string): Promise<string | null>;
     setItem(key: string, value: string): Promise<void>;
     removeItem(key: string): Promise<void>;
+    clear(): Promise<void>;
 }
 
 class AsyncStorageAdapter implements StorageInterface {
@@ -31,6 +32,14 @@ class AsyncStorageAdapter implements StorageInterface {
             console.error('Failed to remove item:', error);
         }
     }
+
+    async clear() {
+        try {
+            return await AsyncStorage.clear();
+        } catch (error) {
+            console.error('Failed to clear all items:', error);
+        }
+    }
 }
 
 class StorageManager implements StorageInterface {
@@ -50,6 +59,10 @@ class StorageManager implements StorageInterface {
 
     async removeItem(key: string) {
         await this.storage.removeItem(key);
+    }
+
+    async clear() {
+        await this.storage.clear();
     }
 }
 

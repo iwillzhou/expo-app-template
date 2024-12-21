@@ -1,13 +1,13 @@
 import React from 'react';
+import { useTheme } from 'src/hooks';
 import { Button } from 'src/components/ui';
 import { Stack, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftStroke } from 'src/components/icons';
-import { useNavigationTheme } from 'src/hooks/theme';
 
 export default function SettingsLayout() {
     const { t } = useTranslation();
-    const navigationTheme = useNavigationTheme();
+    const { navTheme } = useTheme();
     return (
         <Stack
             screenOptions={{
@@ -15,7 +15,7 @@ export default function SettingsLayout() {
                 headerTitleStyle: {
                     fontSize: 16
                 },
-                headerTintColor: navigationTheme.colors.text,
+                headerTintColor: navTheme.colors.text,
                 headerLeft: ({ tintColor }) => (
                     <Button variant="ghost" size="icon" onPress={() => router.back()}>
                         <ArrowLeftStroke color={tintColor} />

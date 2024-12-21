@@ -45,9 +45,8 @@ const config: ExpoConfig = {
             'expo-splash-screen',
             {
                 image: './assets/images/splash-icon.png',
-                imageWidth: 200,
-                resizeMode: 'contain',
-                backgroundColor: '#ffffff'
+                imageWidth: 60,
+                backgroundColor: '#221F1F'
             }
         ]
     ],

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
+import { useTheme } from 'src/hooks';
 import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigationTheme } from 'src/hooks/theme';
 import { PlatformPressable } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { HomeStroke, HomeSolid, UserStroke, UserSolid } from 'src/components/icons';
 
 export default function TabsLayout() {
     const { t } = useTranslation();
+    const { navTheme } = useTheme();
     const insets = useSafeAreaInsets();
-    const navTheme = useNavigationTheme();
 
     return (
         <Tabs
@@ -26,7 +26,7 @@ export default function TabsLayout() {
             }}
         >
             <Tabs.Screen
-                name="index"
+                name="home"
                 options={{
                     title: t('home'),
                     tabBarIcon: ({ color, focused }) =>

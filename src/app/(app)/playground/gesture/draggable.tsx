@@ -28,8 +28,6 @@ export const DraggableBox: FC<DraggableBoxProps> = props => {
             y.value = translateY.value;
         });
 
-    console.log(JSON.stringify(props.boxStyle));
-
     return (
         <GestureDetector gesture={panGesture}>
             <Animated.View
