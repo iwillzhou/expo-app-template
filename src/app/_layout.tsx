@@ -21,7 +21,7 @@ SplashScreen.preventAutoHideAsync();
 let FIRST_RENDER = true;
 
 export default function RootLayout() {
-    const { appIsReady, isDarkColorScheme, navTheme, isFirstLaunch, networkState } = usePrepareApp();
+    const { appIsReady, isDarkColorScheme, navTheme, isFirstLaunch, networkState, isAuthenticated } = usePrepareApp();
     const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
 
     if (!appIsReady || !splashAnimationFinished) {
@@ -46,8 +46,10 @@ export default function RootLayout() {
                     routerUtils.reset('/onboarding');
                 } else if (networkState.isConnected) {
                     routerUtils.reset('/launch');
-                } else {
+                } else if (isAuthenticated) {
                     routerUtils.reset('/home');
+                } else {
+                    routerUtils.reset('/log-in');
                 }
             }
         });
