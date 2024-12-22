@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
 import { View } from 'react-native';
-import { useTheme } from 'src/hooks';
 import { THEMES } from 'src/constants/theme';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from 'src/hooks/use-theme';
 import { TickStroke } from 'src/components/icons';
 import { ColorSchemeSetting } from 'src/types/theme';
 import { ThemedView } from 'src/components/themed-view';

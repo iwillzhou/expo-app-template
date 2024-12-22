@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { useTheme } from 'src/hooks';
 import { Platform } from 'react-native';
+import { useTheme } from 'src/hooks/use-theme';
 import { useTranslation } from 'react-i18next';
 import { PlatformPressable } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

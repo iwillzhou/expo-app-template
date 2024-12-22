@@ -16,9 +16,9 @@ export function usePrepareApp() {
 
     useEffect(() => {
         async function prepare() {
-            const isFirstLaunch = await getIsFirstLaunch();
-            setIsFirstLaunch(isFirstLaunch);
             if (fontLoaded && themeLoaded && networkState.type) {
+                const isFirstLaunch = await getIsFirstLaunch();
+                setIsFirstLaunch(isFirstLaunch);
                 setAppIsReady(true);
             }
         }

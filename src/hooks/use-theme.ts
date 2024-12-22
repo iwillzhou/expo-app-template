@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import useStore from 'src/stores/theme';
+import useThemeStore from 'src/stores/theme';
 import { DEFAULT_COLOR_SCHEME, THEMES } from 'src/constants/theme';
 import { useColorScheme as useNativewindColorScheme, vars } from 'nativewind';
 import { Theme as NavigationTheme, DefaultTheme } from '@react-navigation/native';
 
 export function useTheme() {
     const { colorScheme, setColorScheme } = useNativewindColorScheme();
-    const { loading, theme, colorSchemeSetting, setTheme, setColorSchemeSetting } = useStore();
+    const { loading, theme, colorSchemeSetting, setTheme, setColorSchemeSetting } = useThemeStore();
 
     useEffect(() => {
         setColorScheme(colorSchemeSetting);

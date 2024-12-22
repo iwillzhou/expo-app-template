@@ -41,6 +41,7 @@ const config: ExpoConfig = {
     plugins: [
         'expo-router',
         'expo-localization',
+        'expo-secure-store',
         [
             'expo-splash-screen',
             {

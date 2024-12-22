@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTheme } from 'src/hooks';
 import { Button } from 'src/components/ui';
 import { Stack, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from 'src/hooks/use-theme';
 import { ArrowLeftStroke } from 'src/components/icons';
 
 export default function SettingsLayout() {

@@ -20,19 +20,19 @@ export default function Settings() {
             {
                 key: 'account',
                 title: t('account'),
-                href: '/'
+                href: '/home'
             }
         ],
         [
             {
                 key: 'general',
                 title: t('general'),
-                href: '/'
+                href: '/home'
             },
             {
                 key: 'notification',
                 title: t('notification'),
-                href: '/'
+                href: '/home'
             },
             {
                 key: 'language',
@@ -43,18 +43,23 @@ export default function Settings() {
                 key: 'darkMode',
                 title: t('darkMode'),
                 href: '/settings/dark-mode'
+            },
+            {
+                key: 'fontSize',
+                title: t('fontSize'),
+                href: '/home'
             }
         ],
         [
             {
                 key: 'privacy',
                 title: t('privacy'),
-                href: '/'
+                href: '/home'
             },
             {
                 key: 'about',
                 title: t('about'),
-                href: '/'
+                href: '/home'
             }
         ]
     ];
