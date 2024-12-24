@@ -1,23 +1,23 @@
 import { z } from 'zod';
 import { Link } from 'expo-router';
-import { View, Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useSignUp } from 'src/hooks/queries/auth';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLogInSchema } from 'src/hooks/schema/auth';
+import { useSignUpSchema } from 'src/hooks/schema/auth';
 import { Button, Input, Text } from 'src/components/ui';
-import { ThemedView } from 'src/components/themed-view';
 import { SocialLogin } from 'src/components/social-login';
 import { PasswordInput } from 'src/components/password-input';
-import { useLogInWithPassword } from 'src/hooks/queries/auth';
+import { ThemedView } from 'src/components/themed-view';
 
-type FormData = z.infer<ReturnType<typeof useLogInSchema>>;
+type FormData = z.infer<ReturnType<typeof useSignUpSchema>>;
 
-export default function LogIn() {
-    const { t } = useTranslation('auth', { keyPrefix: 'log_in' });
-    const { isPending, mutate } = useLogInWithPassword();
+export default function SignUp() {
+    const { t } = useTranslation('auth', { keyPrefix: 'sign_up' });
+    const { isPending, mutate } = useSignUp();
 
-    const schema = useLogInSchema();
+    const schema = useSignUpSchema();
     const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
@@ -25,9 +25,7 @@ export default function LogIn() {
             mutate(data);
         },
         errors => {
-            const msg = Object.values(errors)
-                .map(item => item.message)
-                .join();
+            const msg = Object.values(errors).find(item => !!item.message)?.message;
             Alert.alert(msg!);
         }
     );
@@ -52,23 +50,23 @@ export default function LogIn() {
                     )}
                 />
                 <Controller
+                    name="username"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                        <Input
+                            className="native:h-16"
+                            autoCapitalize={'none'}
+                            placeholder={t('username_placeholder')}
+                            value={value}
+                            onChangeText={onChange}
+                        />
+                    )}
+                />
+                <Controller
                     name="password"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                        <View>
-                            <PasswordInput
-                                value={value}
-                                onChangeText={onChange}
-                                placeholder={t('password_placeholder')}
-                            />
-                            <View className="flex flex-row-reverse">
-                                <Link href="/forgot-password" asChild>
-                                    <Button variant="link" className="!px-0">
-                                        <Text>{t('forgot_password')}</Text>
-                                    </Button>
-                                </Link>
-                            </View>
-                        </View>
+                        <PasswordInput value={value} onChangeText={onChange} placeholder={t('password_placeholder')} />
                     )}
                 />
                 <Button size="lg" className="mt-4" disabled={isPending} onPress={onSubmit}>
@@ -77,10 +75,10 @@ export default function LogIn() {
             </View>
             <SocialLogin />
             <View className="flex-row items-baseline justify-center absolute bottom-8 left-7 w-full">
-                <Text>{t('sign_up_prefix')}</Text>
-                <Link href="/sign-up" asChild>
+                <Text>{t('sign_in_prefix')}</Text>
+                <Link href="/log-in" asChild>
                     <Button variant="link" className="!px-1">
-                        <Text>{t('sign_up_link')}</Text>
+                        <Text>{t('sign_in_link')}</Text>
                     </Button>
                 </Link>
             </View>

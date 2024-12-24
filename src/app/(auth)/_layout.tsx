@@ -15,10 +15,6 @@ export default function AuthLayout() {
                 headerShadowVisible: false,
                 headerTitle: ''
             }}
-        >
-            <Stack.Screen name="log-in" />
-            <Stack.Screen name="sign-up" />
-            <Stack.Screen name="forgot-password" />
-        </Stack>
+        />
     );
 }
