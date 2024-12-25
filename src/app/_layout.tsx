@@ -18,8 +18,6 @@ export { ErrorBoundary };
 
 SplashScreen.preventAutoHideAsync();
 
-let FIRST_RENDER = true;
-
 export default function RootLayout() {
     const router = useRouter();
     const { appIsReady, isDarkColorScheme, navTheme, isFirstLaunch, networkState } = usePrepareApp();
@@ -40,24 +38,8 @@ export default function RootLayout() {
         );
     }
 
-    // stack的 initialRouteName 设置不生效，默认是/, 这里hack一下
-    const onSetInitialRouteName = () => {
-        setTimeout(() => {
-            if (FIRST_RENDER) {
-                FIRST_RENDER = false;
-                if (isFirstLaunch) {
-                    router.replace('/onboarding');
-                } else if (networkState.isConnected) {
-                    router.replace('/launch');
-                } else {
-                    router.replace('/home');
-                }
-            }
-        });
-    };
-
     return (
-        <GestureHandlerRootView onLayout={onSetInitialRouteName}>
+        <GestureHandlerRootView>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider value={navTheme}>
                     <BottomSheetModalProvider>
@@ -67,7 +49,12 @@ export default function RootLayout() {
                                 headerShown: false,
                                 navigationBarColor: navTheme.colors.background
                             }}
-                        />
+                        >
+                            <Stack.Screen
+                                name="index"
+                                initialParams={{ isFirstLaunch, isConnected: networkState.isConnected }}
+                            />
+                        </Stack>
                     </BottomSheetModalProvider>
                     <PortalHost />
                 </ThemeProvider>
