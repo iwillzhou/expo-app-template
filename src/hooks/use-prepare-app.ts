@@ -2,7 +2,7 @@ import { useFonts } from 'expo-font';
 import { useState, useEffect } from 'react';
 import { useNetworkState } from 'expo-network';
 import { useTheme } from 'src/hooks/use-theme';
-import { authService } from 'src/api/services';
+// import { authService } from 'src/api/services';
 import { getIsFirstLaunch } from 'src/utils/is-first-launch';
 
 export function usePrepareApp() {
@@ -14,7 +14,7 @@ export function usePrepareApp() {
 
     const [appIsReady, setAppIsReady] = useState(false);
     const [isFirstLaunch, setIsFirstLaunch] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         async function prepare() {
@@ -22,8 +22,8 @@ export function usePrepareApp() {
                 const isFirstLaunch = await getIsFirstLaunch();
                 setIsFirstLaunch(isFirstLaunch);
 
-                const basicInfo = await authService.getUserInfo();
-                setIsAuthenticated(!!basicInfo?.session?.user);
+                // const basicInfo = await authService.getUserInfo();
+                // setIsAuthenticated(!!basicInfo?.session?.user);
 
                 setAppIsReady(true);
             }
@@ -35,8 +35,8 @@ export function usePrepareApp() {
         appIsReady,
         isDarkColorScheme,
         navTheme,
+        // isAuthenticated,
         isFirstLaunch,
-        networkState,
-        isAuthenticated
+        networkState
     };
 }

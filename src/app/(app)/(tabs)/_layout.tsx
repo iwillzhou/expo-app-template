@@ -1,6 +1,7 @@
 import React from 'react';
-import { Tabs } from 'expo-router';
 import { Platform } from 'react-native';
+import { Link, Tabs } from 'expo-router';
+import { Button } from 'src/components/ui';
 import { useTheme } from 'src/hooks/use-theme';
 import { useTranslation } from 'react-i18next';
 import { PlatformPressable } from '@react-navigation/elements';
@@ -22,7 +23,14 @@ export default function TabsLayout() {
                 headerStyle: {
                     height: (Platform.OS === 'android' ? 56 : 38) + insets.top
                 },
-                tabBarButton: props => <PlatformPressable {...props} pressColor={navTheme.colors.background} />
+                tabBarButton: props => <PlatformPressable {...props} pressColor={navTheme.colors.background} />,
+                headerRight: ({ tintColor }) => (
+                    <Link href="/log-in" asChild className="px-2">
+                        <Button variant="ghost" size="icon">
+                            <UserStroke color={tintColor} />
+                        </Button>
+                    </Link>
+                )
             }}
         >
             <Tabs.Screen

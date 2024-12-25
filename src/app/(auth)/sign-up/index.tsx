@@ -7,9 +7,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSignUpSchema } from 'src/hooks/schema/auth';
 import { Button, Input, Text } from 'src/components/ui';
+import { ThemedView } from 'src/components/themed-view';
 import { SocialLogin } from 'src/components/social-login';
 import { PasswordInput } from 'src/components/password-input';
-import { ThemedView } from 'src/components/themed-view';
 
 type FormData = z.infer<ReturnType<typeof useSignUpSchema>>;
 
@@ -76,7 +76,7 @@ export default function SignUp() {
             <SocialLogin />
             <View className="flex-row items-baseline justify-center absolute bottom-8 left-7 w-full">
                 <Text>{t('sign_in_prefix')}</Text>
-                <Link href="/log-in" asChild>
+                <Link href="/log-in" asChild replace>
                     <Button variant="link" className="!px-1">
                         <Text>{t('sign_in_link')}</Text>
                     </Button>

@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import { useEffect, useRef } from 'react';
 import LottieView from 'lottie-react-native';
+import { useTheme } from 'src/hooks/use-theme';
 import * as NavigationBar from 'expo-navigation-bar';
 import { View, LayoutChangeEvent } from 'react-native';
 import Animated, { ZoomOut } from 'react-native-reanimated';
@@ -15,10 +16,14 @@ const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
 const AnimatedSplashScreen = ({ onLayout, onAnimationFinish }: ScreenProps) => {
     const animation = useRef<LottieView>(null);
+    const { navTheme } = useTheme();
 
     useEffect(() => {
         if (Platform.OS !== 'android') return;
         NavigationBar.setBackgroundColorAsync('#221F1F');
+        return () => {
+            NavigationBar.setBackgroundColorAsync(navTheme.colors.background);
+        };
     }, []);
 
     return (

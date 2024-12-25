@@ -78,7 +78,7 @@ export default function LogIn() {
             <SocialLogin />
             <View className="flex-row items-baseline justify-center absolute bottom-8 left-7 w-full">
                 <Text>{t('sign_up_prefix')}</Text>
-                <Link href="/sign-up" asChild>
+                <Link href="/sign-up" asChild replace>
                     <Button variant="link" className="!px-1">
                         <Text>{t('sign_up_link')}</Text>
                     </Button>
