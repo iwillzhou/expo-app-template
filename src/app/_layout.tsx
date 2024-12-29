@@ -40,24 +40,26 @@ export default function RootLayout() {
     }
 
     return (
-        <GestureHandlerRootView className="flex-1" style={colors}>
+        <GestureHandlerRootView>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider value={navTheme}>
-                    <BottomSheetModalProvider>
-                        <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
-                        <Stack
-                            screenOptions={{
-                                headerShown: false,
-                                navigationBarColor: navTheme.colors.background
-                            }}
-                        >
-                            <Stack.Screen
-                                name="index"
-                                initialParams={{ isFirstLaunch, isConnected: networkState.isConnected }}
-                            />
-                        </Stack>
-                    </BottomSheetModalProvider>
-                    <PortalHost />
+                    <View className="flex-1" style={colors}>
+                        <BottomSheetModalProvider>
+                            <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
+                            <Stack
+                                screenOptions={{
+                                    headerShown: false,
+                                    navigationBarColor: navTheme.colors.background
+                                }}
+                            >
+                                <Stack.Screen
+                                    name="index"
+                                    initialParams={{ isFirstLaunch, isConnected: networkState.isConnected }}
+                                />
+                            </Stack>
+                        </BottomSheetModalProvider>
+                        <PortalHost />
+                    </View>
                 </ThemeProvider>
             </QueryClientProvider>
         </GestureHandlerRootView>
