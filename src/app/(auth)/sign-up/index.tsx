@@ -7,7 +7,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSignUpSchema } from 'src/hooks/schema/auth';
 import { Button, Input, Text } from 'src/components/ui';
-import { ThemedView } from 'src/components/themed-view';
 import { SocialLogin } from 'src/components/social-login';
 import { PasswordInput } from 'src/components/password-input';
 
@@ -31,7 +30,7 @@ export default function SignUp() {
     );
 
     return (
-        <ThemedView className="flex-grow px-7">
+        <View className="flex-grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
             </View>
@@ -82,6 +81,6 @@ export default function SignUp() {
                     </Button>
                 </Link>
             </View>
-        </ThemedView>
+        </View>
     );
 }

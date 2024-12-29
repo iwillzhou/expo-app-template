@@ -6,17 +6,18 @@ import { useTheme } from 'src/hooks/use-theme';
 import { useTranslation } from 'react-i18next';
 import { PlatformPressable } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { HomeStroke, HomeSolid, UserStroke, UserSolid } from 'src/components/icons';
+import { HomeStroke, HomeSolid, UserStroke, UserSolid, SettingStroke } from 'src/components/icons';
 
 export default function TabsLayout() {
     const { t } = useTranslation();
-    const { navTheme } = useTheme();
+    const { navTheme, colors } = useTheme();
     const insets = useSafeAreaInsets();
 
     return (
         <Tabs
             screenOptions={{
                 headerTitleAlign: 'center',
+                headerShadowVisible: false,
                 headerTitleStyle: {
                     fontSize: 16
                 },
@@ -24,10 +25,17 @@ export default function TabsLayout() {
                     height: (Platform.OS === 'android' ? 56 : 38) + insets.top
                 },
                 tabBarButton: props => <PlatformPressable {...props} pressColor={navTheme.colors.background} />,
-                headerRight: ({ tintColor }) => (
-                    <Link href="/log-in" asChild className="px-2">
-                        <Button variant="ghost" size="icon">
-                            <UserStroke color={tintColor} />
+                headerLeft: () => (
+                    <Link href="/log-in" asChild>
+                        <Button variant="ghost" size="icon" className="mx-4 rounded-full">
+                            <UserStroke className="text-foreground" />
+                        </Button>
+                    </Link>
+                ),
+                headerRight: () => (
+                    <Link href="/settings" asChild>
+                        <Button variant="ghost" size="icon" className="mx-4 rounded-full">
+                            <SettingStroke className="text-foreground" />
                         </Button>
                     </Link>
                 )

@@ -1,7 +1,7 @@
+import { View } from 'react-native';
 import { Link, Href } from 'expo-router';
-import { ThemedView } from 'src/components/themed-view';
-import { ArrowRightStroke } from 'src/components/icons';
 import { Text, Button } from 'src/components/ui';
+import { ArrowRightStroke } from 'src/components/icons';
 
 interface SettingItem {
     key: string;
@@ -39,7 +39,7 @@ export default function GuestureHome() {
     ];
 
     return (
-        <ThemedView className="grid grid-flow-col p-4 gap-4">
+        <View className="grid grid-flow-col p-4 gap-4">
             {settings.map(item => (
                 <Link key={item.key} href={item.href} asChild>
                     <Button variant="secondary" className="flex-row justify-between native:h-14">
@@ -48,6 +48,6 @@ export default function GuestureHome() {
                     </Button>
                 </Link>
             ))}
-        </ThemedView>
+        </View>
     );
 }

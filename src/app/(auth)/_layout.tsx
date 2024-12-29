@@ -8,7 +8,7 @@ export default function AuthLayout() {
             screenOptions={{
                 headerLeft: ({ canGoBack }) =>
                     canGoBack && (
-                        <Button variant="ghost" size="icon" onPress={() => router.back()} className="p-3!">
+                        <Button variant="ghost" size="icon" onPress={() => router.back()} className="rounded-full">
                             <ArrowLeftStroke className="text-foreground" />
                         </Button>
                     ),

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { View } from 'react-native';
 import { Text } from 'src/components/ui';
 import { Stack, useRouter } from 'expo-router';
-import { ThemedView } from 'src/components/themed-view';
 import { setIsFirstLaunch } from 'src/utils/is-first-launch';
 
 export default function Launch() {
@@ -17,9 +17,9 @@ export default function Launch() {
         };
     }, []);
     return (
-        <ThemedView className="flex-1 items-center justify-center">
+        <View className="flex-1 items-center justify-center">
             <Stack.Screen options={{ animation: 'none' }} />
             <Text>Launch</Text>
-        </ThemedView>
+        </View>
     );
 }

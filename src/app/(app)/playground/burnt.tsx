@@ -1,10 +1,10 @@
 import * as Burnt from 'burnt';
+import { View } from 'react-native';
 import { Text, Button } from 'src/components/ui';
-import { ThemedView } from 'src/components/themed-view';
 
 export default function BurntPlayground() {
     return (
-        <ThemedView className="grid grid-flow-col gap-4 m-auto">
+        <View className="grid grid-flow-col gap-4 m-auto">
             <Button
                 onPress={async () => {
                     Burnt.alert({
@@ -111,6 +111,6 @@ export default function BurntPlayground() {
             >
                 <Text>Custom Icon Toast</Text>
             </Button>
-        </ThemedView>
+        </View>
     );
 }

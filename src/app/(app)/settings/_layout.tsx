@@ -2,23 +2,21 @@ import React from 'react';
 import { Button } from 'src/components/ui';
 import { Stack, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from 'src/hooks/use-theme';
 import { ArrowLeftStroke } from 'src/components/icons';
 
 export default function SettingsLayout() {
     const { t } = useTranslation();
-    const { navTheme } = useTheme();
     return (
         <Stack
             screenOptions={{
                 headerTitleAlign: 'center',
+                headerShadowVisible: false,
                 headerTitleStyle: {
                     fontSize: 16
                 },
-                headerTintColor: navTheme.colors.text,
-                headerLeft: ({ tintColor }) => (
-                    <Button variant="ghost" size="icon" onPress={() => router.back()}>
-                        <ArrowLeftStroke color={tintColor} />
+                headerLeft: () => (
+                    <Button variant="ghost" size="icon" onPress={() => router.back()} className="rounded-full">
+                        <ArrowLeftStroke className="text-foreground" />
                     </Button>
                 )
             }}

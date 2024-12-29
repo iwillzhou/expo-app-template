@@ -1,6 +1,6 @@
+import { View } from 'react-native';
 import { useCallback, useRef } from 'react';
 import { Button, Text } from 'src/components/ui';
-import { ThemedView } from 'src/components/themed-view';
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 
 export default function BottomSheetPlayground() {
@@ -11,7 +11,7 @@ export default function BottomSheetPlayground() {
     }, []);
 
     return (
-        <ThemedView className="flex-1 justify-center items-center">
+        <View className="flex-1 justify-center items-center">
             <Button onPress={handlePresentModalPress} variant="outline">
                 <Text>Present Modal</Text>
             </Button>
@@ -24,6 +24,6 @@ export default function BottomSheetPlayground() {
                     <Text>Awesome 🎉</Text>
                 </BottomSheetView>
             </BottomSheetModal>
-        </ThemedView>
+        </View>
     );
 }

@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Link, Href } from 'expo-router';
-import { ThemedView } from 'src/components/themed-view';
 import { ArrowRightStroke } from 'src/components/icons';
 import { Text, Button, Separator } from 'src/components/ui';
 
@@ -40,7 +39,7 @@ export default function PlaygroundHome() {
     ];
 
     return (
-        <ThemedView className="grid grid-flow-col p-4 gap-4">
+        <View className="grid grid-flow-col p-4 gap-4">
             {settings.map(settingCard => (
                 <View className="bg-secondary rounded-lg" key={settingCard.map(i => i.key).join()}>
                     {settingCard.map((item, index) => (
@@ -56,6 +55,6 @@ export default function PlaygroundHome() {
                     ))}
                 </View>
             ))}
-        </ThemedView>
+        </View>
     );
 }

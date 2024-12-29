@@ -22,8 +22,10 @@
         "general": "General",
         "notification": "Notification",
         "language": "Language",
+        "fontSize": "Font size",
+        "theme": "Theme",
         "darkMode": "Dark mode",
-        "privacy": "Privacy policies",
+        "feedback": "Feedback",
         "about": "About",
         "switchAccount": "Switch Account",
         "logout": "Log out"

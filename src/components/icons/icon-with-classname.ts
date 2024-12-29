@@ -6,7 +6,9 @@ export function iconWithClassName(icon: any) {
             target: 'style',
             nativeStyleToProp: {
                 color: true,
-                opacity: true
+                opacity: true,
+                width: true,
+                height: true
             }
         }
     });

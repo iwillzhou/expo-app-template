@@ -6,7 +6,6 @@ import OTPInput from 'react-native-otp-textinput';
 import { useLocalSearchParams } from 'expo-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-import { ThemedView } from 'src/components/themed-view';
 import { useVerifyOtpSchema } from 'src/hooks/schema/auth';
 import { useVerifyResetPasswordEmailOtp } from 'src/hooks/queries/auth';
 
@@ -32,7 +31,7 @@ export default function ForgotPasswordOTP() {
     );
 
     return (
-        <ThemedView className="flex-grow px-7">
+        <View className="flex-grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
                 <Text className="text-xl mt-6">{t('desc')}</Text>
@@ -49,6 +48,6 @@ export default function ForgotPasswordOTP() {
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>
-        </ThemedView>
+        </View>
     );
 }

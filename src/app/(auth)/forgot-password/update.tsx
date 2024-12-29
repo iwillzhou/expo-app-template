@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Button, Text } from 'src/components/ui';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ThemedView } from 'src/components/themed-view';
 import { useUpdatePassword } from 'src/hooks/queries/auth';
 import { PasswordInput } from 'src/components/password-input';
 import { useResetPasswordSchema } from 'src/hooks/schema/auth';
@@ -29,7 +28,7 @@ export default function UpdatePassword() {
     );
 
     return (
-        <ThemedView className="flex-grow px-7">
+        <View className="flex-grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
                 <Text className="text-xl mt-6">{t('desc')}</Text>
@@ -57,6 +56,6 @@ export default function UpdatePassword() {
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>
-        </ThemedView>
+        </View>
     );
 }

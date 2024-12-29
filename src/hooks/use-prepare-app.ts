@@ -10,7 +10,7 @@ export function usePrepareApp() {
     const [fontLoaded] = useFonts({
         'SpaceMono-Regular': require('assets/fonts/SpaceMono-Regular.ttf')
     });
-    const { loaded: themeLoaded, isDarkColorScheme, navTheme } = useTheme();
+    const { loaded: themeLoaded, isDarkColorScheme, navTheme, colors } = useTheme();
 
     const [appIsReady, setAppIsReady] = useState(false);
     const [isFirstLaunch, setIsFirstLaunch] = useState(true);
@@ -34,6 +34,7 @@ export function usePrepareApp() {
     return {
         appIsReady,
         isDarkColorScheme,
+        colors,
         navTheme,
         // isAuthenticated,
         isFirstLaunch,

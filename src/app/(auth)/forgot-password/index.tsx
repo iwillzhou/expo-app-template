@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Text } from 'src/components/ui';
-import { ThemedView } from 'src/components/themed-view';
 import { useVerifyEmailSchema } from 'src/hooks/schema/auth';
 import { useResetPasswordForEmail } from 'src/hooks/queries/auth';
 
@@ -28,7 +27,7 @@ export default function ForgotPassword() {
     );
 
     return (
-        <ThemedView className="flex-grow px-7">
+        <View className="flex-grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
                 <Text className="text-xl mt-6">{t('desc')}</Text>
@@ -51,6 +50,6 @@ export default function ForgotPassword() {
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>
-        </ThemedView>
+        </View>
     );
 }

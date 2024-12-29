@@ -22,8 +22,10 @@
         "general": "通用",
         "notification": "消息通知",
         "language": "语言",
+        "fontSize": "字体大小",
+        "theme": "主题",
         "darkMode": "深色模式",
-        "privacy": "隐私政策",
+        "feedback": "用户反馈",
         "about": "关于",
         "switchAccount": "切换账户",
         "logout": "退出"

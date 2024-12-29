@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import { View } from 'react-native';
 import { Link, Href } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { ThemedView } from 'src/components/themed-view';
 import { ArrowRightStroke } from 'src/components/icons';
 import { Text, Button, Separator } from 'src/components/ui';
 
@@ -40,32 +39,37 @@ export default function Settings() {
                 href: '/settings/language'
             },
             {
+                key: 'fontSize',
+                title: t('fontSize'),
+                href: '/settings/font-size'
+            },
+            {
+                key: 'theme',
+                title: t('theme'),
+                href: '/settings/theme'
+            },
+            {
                 key: 'darkMode',
                 title: t('darkMode'),
                 href: '/settings/dark-mode'
-            },
-            {
-                key: 'fontSize',
-                title: t('fontSize'),
-                href: '/home'
             }
         ],
         [
             {
-                key: 'privacy',
-                title: t('privacy'),
+                key: 'feedback',
+                title: t('feedback'),
                 href: '/home'
             },
             {
                 key: 'about',
                 title: t('about'),
-                href: '/home'
+                href: '/settings/about'
             }
         ]
     ];
 
     return (
-        <ThemedView className="grid grid-flow-col p-4 gap-4">
+        <View className="grid grid-flow-col p-4 gap-4">
             {settings.map(settingCard => (
                 <View className="bg-secondary rounded-lg" key={settingCard.map(i => i.key).join()}>
                     {settingCard.map((item, index) => (
@@ -87,6 +91,6 @@ export default function Settings() {
             <Button variant="outline">
                 <Text>{t('logout')}</Text>
             </Button>
-        </ThemedView>
+        </View>
     );
 }

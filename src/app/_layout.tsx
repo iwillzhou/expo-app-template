@@ -13,6 +13,7 @@ import { Stack, ErrorBoundary, useRouter } from 'expo-router';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AnimatedSplashScreen from 'src/components/animated-splash-screen';
+import { View } from 'react-native';
 
 export { ErrorBoundary };
 
@@ -20,7 +21,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
     const router = useRouter();
-    const { appIsReady, isDarkColorScheme, navTheme, isFirstLaunch, networkState } = usePrepareApp();
+    const { appIsReady, isDarkColorScheme, navTheme, isFirstLaunch, networkState, colors } = usePrepareApp();
     const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
 
     SystemUI.setBackgroundColorAsync(navTheme.colors.background);
@@ -39,7 +40,7 @@ export default function RootLayout() {
     }
 
     return (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView className="flex-1" style={colors}>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider value={navTheme}>
                     <BottomSheetModalProvider>
