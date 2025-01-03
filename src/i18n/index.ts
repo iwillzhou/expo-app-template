@@ -2,9 +2,9 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from './locales/en.json';
 import zh from './locales/zh.json';
-import { LanguageDetector, LANGUAGE_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION } from './plugins/language-detector';
+import { LanguageDetector, LANGUAGE_SETTING_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION } from './plugins/language-detector';
 
-export { LANGUAGE_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION };
+export { LANGUAGE_SETTING_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION };
 
 export const DEFAULT_LANG = 'en';
 

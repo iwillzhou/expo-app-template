@@ -1,10 +1,11 @@
 import { View } from 'react-native';
 import { Storage } from 'src/utils/storage';
+import { getLocales } from 'expo-localization';
 import { useTranslation } from 'react-i18next';
 import { TickStroke } from 'src/components/icons';
 import { Fragment, useEffect, useState } from 'react';
 import { Button, Separator, Switch, Text } from 'src/components/ui';
-import { LANGUAGE_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION } from 'src/i18n';
+import { LANGUAGE_SETTING_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION } from 'src/i18n';
 
 export default function LanguageSetting() {
     const { i18n } = useTranslation();
@@ -13,18 +14,21 @@ export default function LanguageSetting() {
 
     useEffect(() => {
         async function fetchLangSetting() {
-            const storeLangSetting = await Storage.getItem(LANGUAGE_STORAGE_KEY);
-            const initialLangSetting =
-                storeLangSetting === LANGUAGE_SYSTEM_OPTION ? LANGUAGE_SYSTEM_OPTION : i18n.resolvedLanguage;
-            setLangeSetting(initialLangSetting);
+            const storeLangSetting = await Storage.getItem(LANGUAGE_SETTING_STORAGE_KEY);
+            setLangeSetting(storeLangSetting || LANGUAGE_SYSTEM_OPTION);
         }
         fetchLangSetting();
     }, []);
 
     useEffect(() => {
-        if (i18n.resolvedLanguage !== langSetting) {
+        if (!langSetting) return;
+        if (langSetting === LANGUAGE_SYSTEM_OPTION) {
+            const { languageTag } = getLocales()[0];
+            i18n.changeLanguage(languageTag);
+        } else {
             i18n.changeLanguage(langSetting);
         }
+        Storage.setItem(LANGUAGE_SETTING_STORAGE_KEY, langSetting!);
     }, [langSetting]);
 
     return (
