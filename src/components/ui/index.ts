@@ -1,5 +1,6 @@
 export * from './text';
 export * from './button';
 export * from './separator';
-export * from './input';
 export * from './switch';
+export * from './input';
+export * from './input-otp';
