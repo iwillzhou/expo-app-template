@@ -1,6 +1,7 @@
 import 'src/i18n';
 import 'src/styles/global.css';
 import { useState } from 'react';
+import { View } from 'react-native';
 import { queryClient } from 'src/api';
 import * as SystemUI from 'expo-system-ui';
 import { StatusBar } from 'expo-status-bar';
@@ -13,7 +14,6 @@ import { Stack, ErrorBoundary, useRouter } from 'expo-router';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AnimatedSplashScreen from 'src/components/animated-splash-screen';
-import { View } from 'react-native';
 
 export { ErrorBoundary };
 
