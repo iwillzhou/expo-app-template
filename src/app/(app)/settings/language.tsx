@@ -8,7 +8,7 @@ import { Button, Separator, Switch, Text } from 'src/components/ui';
 import { LANGUAGE_SETTING_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION } from 'src/i18n';
 
 export default function LanguageSetting() {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation('settings', { keyPrefix: 'language' });
     const resource = i18n.services.resourceStore.data;
     const [langSetting, setLangeSetting] = useState<string>();
 
@@ -35,9 +35,9 @@ export default function LanguageSetting() {
         <View className="grid grid-flow-col p-4 gap-4">
             <View className="bg-secondary rounded-lg px-4 py-2">
                 <View className="flex-row justify-between items-center">
-                    <View>
-                        <Text>跟随系统</Text>
-                        <Text className="text-muted-foreground">开启后语言会跟随系统设置</Text>
+                    <View className="flex-shrink">
+                        <Text>{t('system')}</Text>
+                        <Text className="text-muted-foreground">{t('system_desc')}</Text>
                     </View>
                     <Switch
                         checked={langSetting === LANGUAGE_SYSTEM_OPTION}

@@ -6,16 +6,20 @@ import { useTheme } from 'src/hooks/use-theme';
 import { useTranslation } from 'react-i18next';
 import { PlatformPressable } from '@react-navigation/elements';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useStore as useFontSizeStore } from 'src/stores/font-size';
 import { HomeStroke, HomeSolid, UserStroke, UserSolid, SettingStroke } from 'src/components/icons';
 
 export default function TabsLayout() {
     const { t } = useTranslation();
-    const { navTheme, colors } = useTheme();
+    const { navTheme } = useTheme();
     const insets = useSafeAreaInsets();
+    const { followSystem } = useFontSizeStore();
 
     return (
         <Tabs
             screenOptions={{
+                tabBarAllowFontScaling: followSystem,
+                headerTitleAllowFontScaling: followSystem,
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
                 headerTitleStyle: {

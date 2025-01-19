@@ -40,7 +40,7 @@ const InputOTP = React.forwardRef<React.ElementRef<typeof TextInput>, OTPInputPr
                 value={resolvedValue}
                 onChangeText={onInternalValueChange}
                 cellCount={cellCount}
-                className={cn('grid gap-0.5', className)}
+                className={cn('flex-row justify-between gap-1', className)}
                 keyboardType="number-pad"
                 textContentType="oneTimeCode"
                 {...props}
@@ -48,7 +48,7 @@ const InputOTP = React.forwardRef<React.ElementRef<typeof TextInput>, OTPInputPr
                     <View
                         key={index}
                         className={cn(
-                            'size-14 flex items-center justify-center border border-input rounded-md bg-background',
+                            'size-14 aspect-square flex shrink items-center justify-center border border-input rounded-md bg-background',
                             isFocused && 'border-foreground',
                             cellClassName
                         )}

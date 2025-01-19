@@ -3,32 +3,43 @@
     "NSContactsUsageDescription": "An video app",
     "common": {
         "home": "Home",
-        "profile": "Profile",
-        "settings": "Settings",
-        "language": "Language",
-        "darkMode": "Dark mode"
-    },
-    "theme": {
-        "system": "Follow System",
-        "light": "Light",
-        "dark": "Dark",
-        "zinc": "Zinc",
-        "orange": "Orange",
-        "blue": "Blue",
-        "violet": "Violet"
+        "profile": "Profile"
     },
     "settings": {
-        "account": "Account",
-        "general": "General",
-        "notification": "Notification",
-        "language": "Language",
-        "fontSize": "Font size",
-        "theme": "Theme",
-        "darkMode": "Dark mode",
-        "feedback": "Feedback",
-        "about": "About",
-        "switchAccount": "Switch Account",
-        "logout": "Log out"
+        "index": {
+            "settings": "Settings",
+            "account": "Account",
+            "general": "General",
+            "notification": "Notification",
+            "language": "Language",
+            "font_size": "Font size",
+            "theme": "Theme",
+            "dark_mode": "Dark mode",
+            "feedback": "Feedback",
+            "about": "About",
+            "switch_account": "Switch Account",
+            "logout": "Log out"
+        },
+        "language": {
+            "system": "Follow System",
+            "system_desc": "Use system setting"
+        },
+        "font_size": {
+            "system": "Follow System",
+            "system_desc": "Use system setting"
+        },
+        "theme": {
+            "zinc": "Zinc",
+            "orange": "Orange",
+            "blue": "Blue",
+            "violet": "Violet"
+        },
+        "dark_mode": {
+            "system": "Follow System",
+            "system_desc": "Use system setting",
+            "light": "Light",
+            "dark": "Dark"
+        }
     },
     "auth": {
         "log_in": {

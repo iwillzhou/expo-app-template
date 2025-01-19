@@ -1,6 +1,7 @@
-import * as SwitchPrimitives from '@rn-primitives/switch';
 import * as React from 'react';
+import { rem } from 'nativewind';
 import { Platform } from 'react-native';
+import * as SwitchPrimitives from '@rn-primitives/switch';
 import Animated, { interpolateColor, useAnimatedStyle, useDerivedValue, withTiming } from 'react-native-reanimated';
 import { useTheme } from 'src/hooks/use-theme';
 import { cn } from 'src/utils';
@@ -43,7 +44,8 @@ const RGB_COLORS = {
 const SwitchNative = React.forwardRef<SwitchPrimitives.RootRef, SwitchPrimitives.RootProps>(
     ({ className, ...props }, ref) => {
         const { colorScheme } = useTheme();
-        const translateX = useDerivedValue(() => (props.checked ? 18 : 0));
+        const base = rem.get() / 14;
+        const translateX = useDerivedValue(() => (props.checked ? base * 18 : 0));
         const animatedRootStyle = useAnimatedStyle(() => {
             return {
                 backgroundColor: interpolateColor(
@@ -59,11 +61,11 @@ const SwitchNative = React.forwardRef<SwitchPrimitives.RootRef, SwitchPrimitives
         return (
             <Animated.View
                 style={animatedRootStyle}
-                className={cn('h-8 w-[46px] rounded-full', props.disabled && 'opacity-50')}
+                className={cn('h-8 aspect-[46/28] rounded-full', props.disabled && 'opacity-50')}
             >
                 <SwitchPrimitives.Root
                     className={cn(
-                        'flex-row h-8 w-[46px] shrink-0 items-center rounded-full border-2 border-transparent',
+                        'flex-row h-8 aspect-[46/28] shrink-0 items-center rounded-full border-2 border-transparent',
                         props.checked ? 'bg-primary' : 'bg-input',
                         className
                     )}

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Link } from 'expo-router';
-import { View, Alert } from 'react-native';
+import { View, Alert, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,8 +32,8 @@ export default function LogIn() {
     );
 
     return (
-        <View className="flex-grow px-7">
-            <View className="my-16">
+        <ScrollView className="flex-grow px-7">
+            <View className="my-[64px]">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
             </View>
             <View className="grid gap-3">
@@ -74,8 +74,8 @@ export default function LogIn() {
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>
-            <SocialLogin />
-            <View className="flex-row items-baseline justify-center absolute bottom-8 left-7 w-full">
+            <SocialLogin className="mb-24" />
+            <View className="flex-row items-baseline justify-center absolute bottom-8 w-full">
                 <Text>{t('sign_up_prefix')}</Text>
                 <Link href="/sign-up" asChild replace>
                     <Button variant="link" className="!px-1">
@@ -83,6 +83,6 @@ export default function LogIn() {
                     </Button>
                 </Link>
             </View>
-        </View>
+        </ScrollView>
     );
 }

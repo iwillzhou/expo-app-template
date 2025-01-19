@@ -1,43 +1,45 @@
-/**
- * @file font size setting
- *
- * 半成品, 配置并没有真正生效
- * followSystem = true, Text的 allowFontScaling = true
- * followSystem = false, 希望能够直接设置font scale，但没有对应API；退而求其次，想跟主题对齐，看能不能设置字体变量，先不搞了
- *
- */
-
-import React from 'react';
 import { View } from 'react-native';
-import useFontSizeStore from 'src/stores/font-size';
-import { Switch, Text, Slider } from 'src/components/ui';
+import React, { useReducer } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Switch, Text, Slider, Button } from 'src/components/ui';
+import { useStore as useFontSizeStore } from 'src/stores/font-size';
+
+const STEP = 4;
+const MINI_REM = 10;
+const MAX_REM = 22;
 
 export default function FontSizeSetting() {
+    const { t } = useTranslation('settings', { keyPrefix: 'font_size' });
     const { followSystem, customFontSize, setFollowSystem, setCustomFontSize } = useFontSizeStore();
+
+    const [, forceUpdate] = useReducer(x => x + 1, 0);
 
     return (
         <View className="grid grid-flow-col p-4 gap-4">
             <View className="bg-secondary rounded-lg px-4 py-2">
                 <View className="flex-row justify-between items-center">
-                    <View>
-                        <Text>跟随系统</Text>
-                        <Text className="text-muted-foreground">开启后字体大小会跟随系统设置</Text>
+                    <View className="flex-shrink">
+                        <Text>{t('system')}</Text>
+                        <Text className="text-muted-foreground">{t('system_desc')}</Text>
                     </View>
-                    <Switch checked={followSystem} onCheckedChange={setFollowSystem} />
+                    <Switch onLayout={forceUpdate} checked={followSystem} onCheckedChange={setFollowSystem} />
                 </View>
             </View>
             <View className="bg-secondary rounded-lg px-4 py-2">
-                <View className="flex-row items-center justify-evenly py-4">
-                    <Text className="text-2xl ios:pb-1">—</Text>
+                <View className="flex-row items-center justify-center py-4">
+                    <Button variant="ghost" size="icon" disabled={followSystem}>
+                        <Text className="text-[28px] ios:pb-[2px]">—</Text>
+                    </Button>
                     <Slider
+                        key={+followSystem}
                         tapToSeek
                         value={customFontSize}
                         onValueChange={setCustomFontSize}
                         disabled={followSystem}
-                        step={4}
-                        minimumValue={10}
-                        maximumValue={22}
-                        className="w-[85%] h-[19]"
+                        step={STEP}
+                        minimumValue={MINI_REM}
+                        maximumValue={MAX_REM}
+                        className="w-[80%] h-[19]"
                         StepMarker={({ stepMarked }) => {
                             return (
                                 !stepMarked && (
@@ -50,7 +52,9 @@ export default function FontSizeSetting() {
                         maximumTrackTintColorClassName="color-primary"
                         minimumTrackTintColorClassName="color-primary"
                     />
-                    <Text className="text-2xl ios:pb-1">+</Text>
+                    <Button variant="ghost" size="icon" disabled={followSystem}>
+                        <Text className="text-[28px] ios:pb-[2px]">+</Text>
+                    </Button>
                 </View>
             </View>
         </View>

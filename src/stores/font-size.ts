@@ -13,7 +13,7 @@ interface FontSizeState {
     setLoading: (loading: boolean) => void;
 }
 
-const useStore = create<FontSizeState>()(
+export const useStore = create<FontSizeState>()(
     persist(
         set => ({
             followSystem: true,
@@ -27,7 +27,7 @@ const useStore = create<FontSizeState>()(
         {
             name: 'fontSize',
             storage: createJSONStorage(() => Storage),
-            partialize: state => ({ theme: state.followSystem, customFontSize: state.customFontSize }),
+            partialize: state => ({ followSystem: state.followSystem, customFontSize: state.customFontSize }),
             onRehydrateStorage: () => state => {
                 if (state) {
                     state.setLoading(false); // 状态恢复后，设置 loading 为 false

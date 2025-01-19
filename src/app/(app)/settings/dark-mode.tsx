@@ -7,16 +7,16 @@ import { ColorSchemeSetting } from 'src/types/theme';
 import { Text, Button, Separator, Switch } from 'src/components/ui';
 
 export default function DarkModeSetting() {
-    const { t } = useTranslation('theme');
+    const { t } = useTranslation('settings', { keyPrefix: 'dark_mode' });
     const { colorScheme, colorSchemeSetting, setColorSchemeSetting } = useTheme();
 
     return (
         <View className="grid grid-flow-col p-4 gap-4">
             <View className="bg-secondary rounded-lg px-4 py-2">
                 <View className="flex-row justify-between items-center">
-                    <View>
+                    <View className="flex-shrink">
                         <Text>{t('system')}</Text>
-                        <Text className="text-muted-foreground">开启后深色模式会跟随系统设置</Text>
+                        <Text className="text-muted-foreground">{t('system_desc')}</Text>
                     </View>
                     <Switch
                         checked={colorSchemeSetting === 'system'}

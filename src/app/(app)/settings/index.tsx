@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
-import { View } from 'react-native';
 import { Link, Href } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { View, ScrollView } from 'react-native';
 import { ArrowRightStroke } from 'src/components/icons';
 import { Text, Button, Separator } from 'src/components/ui';
 
@@ -12,7 +12,7 @@ interface SettingItem {
 }
 
 export default function Settings() {
-    const { t } = useTranslation('settings');
+    const { t } = useTranslation('settings', { keyPrefix: 'index' });
 
     const settings: SettingItem[][] = [
         [
@@ -40,7 +40,7 @@ export default function Settings() {
             },
             {
                 key: 'fontSize',
-                title: t('fontSize'),
+                title: t('font_size'),
                 href: '/settings/font-size'
             },
             {
@@ -50,7 +50,7 @@ export default function Settings() {
             },
             {
                 key: 'darkMode',
-                title: t('darkMode'),
+                title: t('dark_mode'),
                 href: '/settings/dark-mode'
             }
         ],
@@ -69,28 +69,30 @@ export default function Settings() {
     ];
 
     return (
-        <View className="grid grid-flow-col p-4 gap-4">
-            {settings.map(settingCard => (
-                <View className="bg-secondary rounded-lg" key={settingCard.map(i => i.key).join()}>
-                    {settingCard.map((item, index) => (
-                        <Fragment key={item.key}>
-                            {index !== 0 && <Separator className="mx-4 my-0 w-auto" />}
-                            <Link href={item.href} asChild>
-                                <Button variant="secondary" className="flex-row justify-between native:h-14">
-                                    <Text className="font-normal">{item.title}</Text>
-                                    <ArrowRightStroke />
-                                </Button>
-                            </Link>
-                        </Fragment>
-                    ))}
-                </View>
-            ))}
-            <Button variant="default">
-                <Text>{t('switchAccount')}</Text>
-            </Button>
-            <Button variant="outline">
-                <Text>{t('logout')}</Text>
-            </Button>
-        </View>
+        <ScrollView>
+            <View className="grid grid-flow-col p-4 gap-4">
+                {settings.map(settingCard => (
+                    <View className="bg-secondary rounded-lg" key={settingCard.map(i => i.key).join()}>
+                        {settingCard.map((item, index) => (
+                            <Fragment key={item.key}>
+                                {index !== 0 && <Separator className="mx-4 my-0 w-auto" />}
+                                <Link href={item.href} asChild>
+                                    <Button variant="secondary" className="flex-row justify-between native:h-14">
+                                        <Text className="font-normal">{item.title}</Text>
+                                        <ArrowRightStroke />
+                                    </Button>
+                                </Link>
+                            </Fragment>
+                        ))}
+                    </View>
+                ))}
+                <Button variant="default">
+                    <Text>{t('switch_account')}</Text>
+                </Button>
+                <Button variant="outline">
+                    <Text>{t('logout')}</Text>
+                </Button>
+            </View>
+        </ScrollView>
     );
 }

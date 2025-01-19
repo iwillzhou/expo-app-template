@@ -7,7 +7,7 @@ import { TickStroke } from 'src/components/icons';
 import { Button, Separator, Text } from 'src/components/ui';
 
 export default function ThemeSetting() {
-    const { t } = useTranslation('theme');
+    const { t } = useTranslation('settings', { keyPrefix: 'theme' });
     const { theme, setTheme } = useTheme();
     return (
         <View className="grid grid-flow-col p-4 gap-4">

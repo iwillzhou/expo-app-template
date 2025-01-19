@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Link } from 'expo-router';
-import { Alert, View } from 'react-native';
+import { Alert, View, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSignUp } from 'src/hooks/queries/auth';
 import { useForm, Controller } from 'react-hook-form';
@@ -30,7 +30,7 @@ export default function SignUp() {
     );
 
     return (
-        <View className="flex-grow px-7">
+        <ScrollView className="flex-grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
             </View>
@@ -73,7 +73,7 @@ export default function SignUp() {
                 </Button>
             </View>
             <SocialLogin />
-            <View className="flex-row items-baseline justify-center absolute bottom-8 left-7 w-full">
+            <View className="flex-row items-baseline justify-center w-full mb-4">
                 <Text>{t('sign_in_prefix')}</Text>
                 <Link href="/log-in" asChild replace>
                     <Button variant="link" className="!px-1">
@@ -81,6 +81,6 @@ export default function SignUp() {
                     </Button>
                 </Link>
             </View>
-        </View>
+        </ScrollView>
     );
 }
