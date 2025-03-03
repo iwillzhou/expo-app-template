@@ -1,13 +1,17 @@
 const fs = require("fs");
 const path = require("path");
-const Constants = require("expo-constants");
-// 1️⃣ 读取 app.config.ts 中的 locales 配置
-const locales = Constants.default?.expoConfig?.locales;
+const { execSync } = require('child_process');
 
-if (!locales) {
+const stdout = execSync('pnpm exec expo config --json').toString();
+const appConfig = JSON.parse(stdout);
+
+if (!appConfig || !appConfig.locales) {
     console.error("❌ Error: `locales` key not found in app.config.ts");
     process.exit(1);
 }
+
+// 1️⃣ 读取 app.config.ts 中的 locales 配置
+const locales = appConfig.locales;
 
 // 2️⃣ 处理每种语言
 const androidResPath = path.resolve(__dirname, "../../android/app/src/main/res");
