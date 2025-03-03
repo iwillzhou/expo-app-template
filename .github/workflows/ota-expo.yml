@@ -59,7 +59,7 @@ jobs:
         run: pnpm exec expo export --platform ${{ inputs.platform }}
 
       - name: Copy expo config to dist
-        run: npx expo config --json > dist/expoConfig.json
+        run: pnpm exec expo config --json > dist/expoConfig.json
 
       - name: Computed project fingerprint / rumtimeVersion
         run: |

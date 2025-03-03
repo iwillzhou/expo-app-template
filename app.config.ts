@@ -1,6 +1,6 @@
 import 'ts-node/register';
 import { ExpoConfig } from 'expo/config';
-import { getAppName, getAppScheme, getProjectId, getUniqueIdentifier, getUpdatesUrl, isProduction } from './app.utils';
+import { getAppName, getAppScheme, getProjectId, getUniqueIdentifier, getUpdatesUrl } from './app.utils';
 
 const config: ExpoConfig = {
     name: getAppName(),
@@ -15,7 +15,7 @@ const config: ExpoConfig = {
         supportsTablet: true,
         bundleIdentifier: getUniqueIdentifier(),
         infoPlist: {
-            CFBundleAllowMixedLocalizations: isProduction
+            CFBundleAllowMixedLocalizations: true
         }
     },
     android: {
@@ -30,14 +30,10 @@ const config: ExpoConfig = {
         output: 'static',
         favicon: './assets/images/favicon.png'
     },
-    ...(isProduction
-        ? {
-              locales: {
-                  en: './src/i18n/locales/en.json',
-                  zh: './src/i18n/locales/zh.json'
-              }
-          }
-        : {}),
+    locales: {
+        en: './src/i18n/locales/en.json',
+        zh: './src/i18n/locales/zh.json'
+    },
     plugins: [
         'expo-router',
         'expo-localization',

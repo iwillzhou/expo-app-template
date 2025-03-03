@@ -1,6 +1,5 @@
 {
     "CFBundleDisplayName": "奈飞",
-    "NSContactsUsageDescription": "一个视频应用",
     "common": {
         "home": "首页",
         "profile": "我的"

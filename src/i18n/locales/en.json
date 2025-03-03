@@ -1,6 +1,5 @@
 {
     "CFBundleDisplayName": "Netflix",
-    "NSContactsUsageDescription": "An video app",
     "common": {
         "home": "Home",
         "profile": "Profile"

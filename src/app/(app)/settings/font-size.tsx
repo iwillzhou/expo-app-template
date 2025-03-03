@@ -31,7 +31,6 @@ export default function FontSizeSetting() {
                         <Text className="text-[28px] ios:pb-[2px]">—</Text>
                     </Button>
                     <Slider
-                        key={+followSystem}
                         tapToSeek
                         value={customFontSize}
                         onValueChange={setCustomFontSize}
