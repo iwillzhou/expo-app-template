@@ -70,7 +70,7 @@ jobs:
         run: node .github/scripts/generate-strings.js
 
       - name: Build Android app
-        run: eas build --platform android --profile $APP_ENV --local --output ${{ github.workspace }}/app-release.apk
+        run: eas build --platform android --profile $APP_ENV --local --no-auto-init --output ${{ github.workspace }}/app-release.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -126,7 +126,7 @@ jobs:
         run: node .github/scripts/generate-strings.js
 
       - name: Build Android app
-        run: eas build --platform android --profile $APP_ENV-aab --local --output ${{ github.workspace }}/app-release.aab
+        run: eas build --platform android --profile $APP_ENV-aab --local --no-auto-init --output ${{ github.workspace }}/app-release.aab
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
