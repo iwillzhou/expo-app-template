@@ -45,7 +45,8 @@ const config: ExpoConfig = {
                 imageWidth: 60,
                 backgroundColor: '#221F1F'
             }
-        ]
+        ],
+        "./plugins/custom-android-app-name"
     ],
     experiments: {
         typedRoutes: true
