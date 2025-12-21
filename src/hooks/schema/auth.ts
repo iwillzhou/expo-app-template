@@ -12,7 +12,7 @@ const useBaseSchema = () => {
                 message: t('password_min_len_error')
             })
             .max(100)
-            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/, {
+            .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/, {
                 message: t('password_pattern_error')
             }),
         otp: z.string().length(6, {

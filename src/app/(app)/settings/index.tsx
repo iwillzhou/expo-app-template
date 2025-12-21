@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { Link, Href } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { View, ScrollView } from 'react-native';
+import { useSignOut } from 'src/hooks/queries/auth';
 import { ArrowRightStroke } from 'src/components/icons';
 import { Text, Button, Separator } from 'src/components/ui';
 
@@ -13,6 +14,8 @@ interface SettingItem {
 
 export default function Settings() {
     const { t } = useTranslation('settings', { keyPrefix: 'index' });
+
+    const signOutMutation = useSignOut();
 
     const settings: SettingItem[][] = [
         [
@@ -68,6 +71,11 @@ export default function Settings() {
         ]
     ];
 
+    const onLogout = () => {
+        // double check
+        signOutMutation.mutate();
+    };
+
     return (
         <ScrollView>
             <View className="grid grid-flow-col p-4 gap-4">
@@ -89,7 +97,7 @@ export default function Settings() {
                 <Button variant="default">
                     <Text>{t('switch_account')}</Text>
                 </Button>
-                <Button variant="outline">
+                <Button variant="outline" onPress={onLogout}>
                     <Text>{t('logout')}</Text>
                 </Button>
             </View>

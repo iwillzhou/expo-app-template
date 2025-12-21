@@ -5,3 +5,4 @@ export * from './switch';
 export * from './input';
 export * from './input-otp';
 export * from './slider';
+export * from './avatar';

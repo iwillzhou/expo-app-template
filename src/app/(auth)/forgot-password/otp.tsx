@@ -6,14 +6,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { useVerifyOtpSchema } from 'src/hooks/schema/auth';
 import { Button, Text, InputOTP } from 'src/components/ui';
-import { useVerifyResetPasswordEmailOtp } from 'src/hooks/queries/auth';
+import { useResendResetPasswordEmailOtp, useVerifyResetPasswordEmailOtp } from 'src/hooks/queries/auth';
 
 type FormData = z.infer<ReturnType<typeof useVerifyOtpSchema>>;
 
 export default function ForgotPasswordOTP() {
     const { t } = useTranslation('auth', { keyPrefix: 'forgot_password_otp' });
 
-    const { isPending, mutate } = useVerifyResetPasswordEmailOtp();
+    const verifyResetPasswordEmailOtpMutation = useVerifyResetPasswordEmailOtp();
+    const resendResetPasswordEmailOtpMutation = useResendResetPasswordEmailOtp();
+
     const { email } = useLocalSearchParams<{ email: string }>();
 
     const schema = useVerifyOtpSchema();
@@ -21,13 +23,17 @@ export default function ForgotPasswordOTP() {
 
     const onSubmit = handleSubmit(
         data => {
-            mutate({ email, token: data.otp });
+            verifyResetPasswordEmailOtpMutation.mutate({ email, token: data.otp });
         },
         errors => {
             const msg = Object.values(errors).find(item => !!item.message)?.message;
             Alert.alert(msg!);
         }
     );
+
+    const onResend = () => {
+        resendResetPasswordEmailOtpMutation.mutate(email);
+    };
 
     return (
         <View className="flex-grow px-7">
@@ -43,9 +49,25 @@ export default function ForgotPasswordOTP() {
                         <InputOTP cellCount={6} value={value} onChange={onChange} />
                     )}
                 />
-                <Button size="lg" className="mt-4" disabled={isPending} onPress={onSubmit}>
+                <Button
+                    size="lg"
+                    className="mt-4"
+                    disabled={verifyResetPasswordEmailOtpMutation.isPending}
+                    onPress={onSubmit}
+                >
                     <Text>{t('submit_btn')}</Text>
                 </Button>
+                <View className="flex-row items-baseline justify-center w-full">
+                    <Text>{t('resend_otp_btn_prefix')}</Text>
+                    <Button
+                        variant="link"
+                        className="!px-1"
+                        disabled={resendResetPasswordEmailOtpMutation.isPending}
+                        onPress={onResend}
+                    >
+                        <Text>{t('resend_otp_btn')}</Text>
+                    </Button>
+                </View>
             </View>
         </View>
     );

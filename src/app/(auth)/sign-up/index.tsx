@@ -14,14 +14,14 @@ type FormData = z.infer<ReturnType<typeof useSignUpSchema>>;
 
 export default function SignUp() {
     const { t } = useTranslation('auth', { keyPrefix: 'sign_up' });
-    const { isPending, mutate } = useSignUp();
+    const signUpMutation = useSignUp();
 
     const schema = useSignUpSchema();
     const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
-            mutate(data);
+            signUpMutation.mutate(data);
         },
         errors => {
             const msg = Object.values(errors).find(item => !!item.message)?.message;
@@ -68,7 +68,7 @@ export default function SignUp() {
                         <PasswordInput value={value} onChangeText={onChange} placeholder={t('password_placeholder')} />
                     )}
                 />
-                <Button size="lg" className="mt-4" disabled={isPending} onPress={onSubmit}>
+                <Button size="lg" className="mt-4" disabled={signUpMutation.isPending} onPress={onSubmit}>
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>

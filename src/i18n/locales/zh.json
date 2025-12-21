@@ -1,5 +1,5 @@
 {
-    "CFBundleDisplayName": "奈飞",
+    "CFBundleDisplayName": "网飞",
     "common": {
         "home": "首页",
         "profile": "我的"
@@ -62,7 +62,10 @@
         "sign_up_otp": {
             "title": "验证码",
             "desc": "请输入我们刚刚发送到您邮箱的验证码",
-            "submit_btn": "确认"
+            "submit_btn": "确认",
+            "resend_otp_btn_prefix": "没收到验证码？",
+            "resend_otp_btn": "重新发送",
+            "send_otp_success_info": "验证码已发送"
         },
         "sign_up_success": {
             "title": "注册成功！",
@@ -77,7 +80,10 @@
         "forgot_password_otp": {
             "title": "验证码",
             "desc": "请输入我们刚刚发送到您邮箱的验证码",
-            "submit_btn": "确认"
+            "submit_btn": "确认",
+            "resend_otp_btn_prefix": "没收到验证码？",
+            "resend_otp_btn": "重新发送",
+            "send_otp_success_info": "验证码已发送"
         },
         "forgot_password_update": {
             "title": "重置密码",
@@ -98,7 +104,7 @@
             "invalid_email": "请输入有效的邮箱地址",
             "empty_password": "请输入密码",
             "password_min_len_error": "密码最小长度8个字符",
-            "password_pattern_error": "密码至少要包含大小写字母、数字和特殊字符",
+            "password_pattern_error": "密码至少要包含大小写字母、数字",
             "otp_length_error": "请输入完整的验证码",
             "password_not_match_error": "密码不一致"
         }

@@ -13,6 +13,8 @@ import AppleStroke from 'assets/images/icons/apple-stroke.svg';
 import ViewStroke from 'assets/images/icons/view-stroke.svg';
 import ViewOffSlashStroke from 'assets/images/icons/view-off-slash-stroke.svg';
 import TickStroke from 'assets/images/icons/tick-stroke.svg';
+import EditStroke from 'assets/images/icons/edit-stroke.svg';
+import CrownSolid from 'assets/images/icons/crown-solid.svg';
 
 iconWithClassName(HomeStroke);
 iconWithClassName(HomeSolid);
@@ -27,6 +29,8 @@ iconWithClassName(AppleStroke);
 iconWithClassName(ViewStroke);
 iconWithClassName(ViewOffSlashStroke);
 iconWithClassName(TickStroke);
+iconWithClassName(EditStroke);
+iconWithClassName(CrownSolid);
 
 export { HomeStroke };
 export { HomeSolid };
@@ -41,3 +45,5 @@ export { AppleStroke };
 export { ViewStroke };
 export { ViewOffSlashStroke };
 export { TickStroke };
+export { EditStroke };
+export { CrownSolid };

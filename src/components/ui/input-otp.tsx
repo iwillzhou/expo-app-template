@@ -49,7 +49,7 @@ const InputOTP = React.forwardRef<React.ElementRef<typeof TextInput>, OTPInputPr
                         key={index}
                         className={cn(
                             'size-14 aspect-square flex shrink items-center justify-center border border-input rounded-md bg-background',
-                            isFocused && 'border-foreground',
+                            isFocused && 'border-primary',
                             cellClassName
                         )}
                         onLayout={getCellOnLayoutHandler(index)}

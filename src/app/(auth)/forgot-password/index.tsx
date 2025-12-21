@@ -11,14 +11,14 @@ type FormData = z.infer<ReturnType<typeof useVerifyEmailSchema>>;
 
 export default function ForgotPassword() {
     const { t } = useTranslation('auth', { keyPrefix: 'forgot_password' });
-    const { isPending, mutate } = useResetPasswordForEmail();
+    const resetPasswordForEmailMutation = useResetPasswordForEmail();
 
     const schema = useVerifyEmailSchema();
     const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
-            mutate(data.email);
+            resetPasswordForEmailMutation.mutate(data.email);
         },
         errors => {
             const msg = Object.values(errors).find(item => !!item.message)?.message;
@@ -46,7 +46,12 @@ export default function ForgotPassword() {
                         />
                     )}
                 />
-                <Button size="lg" className="mt-4" disabled={isPending} onPress={onSubmit}>
+                <Button
+                    size="lg"
+                    className="mt-4"
+                    disabled={resetPasswordForEmailMutation.isPending}
+                    onPress={onSubmit}
+                >
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>

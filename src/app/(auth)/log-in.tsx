@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import { Link } from 'expo-router';
-import { View, Alert, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogInSchema } from 'src/hooks/schema/auth';
+import { View, Alert, ScrollView } from 'react-native';
 import { Button, Input, Text } from 'src/components/ui';
 import { SocialLogin } from 'src/components/social-login';
 import { PasswordInput } from 'src/components/password-input';
@@ -14,14 +14,14 @@ type FormData = z.infer<ReturnType<typeof useLogInSchema>>;
 
 export default function LogIn() {
     const { t } = useTranslation('auth', { keyPrefix: 'log_in' });
-    const { isPending, mutate } = useLogInWithPassword();
+    const logInMutation = useLogInWithPassword();
 
     const schema = useLogInSchema();
     const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
-            mutate(data);
+            logInMutation.mutate(data);
         },
         errors => {
             const msg = Object.values(errors)
@@ -70,7 +70,7 @@ export default function LogIn() {
                         </View>
                     )}
                 />
-                <Button size="lg" className="mt-4" disabled={isPending} onPress={onSubmit}>
+                <Button size="lg" className="mt-4" disabled={logInMutation.isPending} onPress={onSubmit}>
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>

@@ -29,13 +29,6 @@ export default function TabsLayout() {
                     height: (Platform.OS === 'android' ? 56 : 38) + insets.top
                 },
                 tabBarButton: props => <PlatformPressable {...props} pressColor={navTheme.colors.background} />,
-                headerLeft: () => (
-                    <Link href="/log-in" asChild>
-                        <Button variant="ghost" size="icon" className="mx-4 rounded-full">
-                            <UserStroke className="text-foreground" />
-                        </Button>
-                    </Link>
-                ),
                 headerRight: () => (
                     <Link href="/settings" asChild>
                         <Button variant="ghost" size="icon" className="mx-4 rounded-full">

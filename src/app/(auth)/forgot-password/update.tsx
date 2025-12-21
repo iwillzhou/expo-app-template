@@ -12,14 +12,14 @@ type FormData = z.infer<ReturnType<typeof useResetPasswordSchema>>;
 
 export default function UpdatePassword() {
     const { t } = useTranslation('auth', { keyPrefix: 'forgot_password_update' });
-    const { isPending, mutate } = useUpdatePassword();
+    const updatePasswordMutation = useUpdatePassword();
 
     const schema = useResetPasswordSchema();
     const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
-            mutate(data.password);
+            updatePasswordMutation.mutate(data.password);
         },
         errors => {
             const msg = Object.values(errors).find(item => !!item.message)?.message;
@@ -52,7 +52,7 @@ export default function UpdatePassword() {
                         />
                     )}
                 />
-                <Button size="lg" className="mt-4" disabled={isPending} onPress={onSubmit}>
+                <Button size="lg" className="mt-4" disabled={updatePasswordMutation.isPending} onPress={onSubmit}>
                     <Text>{t('submit_btn')}</Text>
                 </Button>
             </View>
