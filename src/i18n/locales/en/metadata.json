@@ -1,0 +1,13 @@
+{
+    "ios": {
+        "CFBundleDisplayName": "Hello",
+        "NSContactsUsageDescription": "Desc",
+        "Localizable.strings": {
+            "HELLO_NOTIFICATION_KEY": "HelloWorld"
+        }
+    },
+    "android": {
+        "app_name": "Hello",
+        "HELLO_NOTIFICATION_KEY": "HelloWorld"
+    }
+}

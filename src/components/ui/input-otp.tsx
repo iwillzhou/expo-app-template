@@ -1,4 +1,4 @@
-import { cn } from 'src/utils';
+import { cn } from 'src/utils/cn';
 import { remapProps } from 'nativewind';
 import { TextInput, View } from 'react-native';
 import React, { useCallback, useState } from 'react';
@@ -15,55 +15,58 @@ remapProps(CodeField, {
     className: 'rootStyle'
 });
 
-const InputOTP = React.forwardRef<React.ElementRef<typeof TextInput>, OTPInputProps>(
-    ({ value, onChange, cellCount, className, cellClassName, defaultValue, ...props }, ref) => {
-        const [internalValue, setInternalValue] = useState(defaultValue);
-        const resolvedValue = value ?? internalValue;
+function InputOTP({
+    className,
+    value,
+    onChange,
+    cellCount,
+    cellClassName,
+    defaultValue,
+    ...props
+}: OTPInputProps & React.RefAttributes<TextInput>) {
+    const [internalValue, setInternalValue] = useState(defaultValue);
+    const resolvedValue = value ?? internalValue;
 
-        const onInternalValueChange = useCallback(
-            (value: string) => {
-                onChange?.(value);
-                setInternalValue(value);
-            },
-            [onChange]
-        );
+    const onInternalValueChange = useCallback(
+        (value: string) => {
+            onChange?.(value);
+            setInternalValue(value);
+        },
+        [onChange]
+    );
 
-        const [{ onPressOut }, getCellOnLayoutHandler] = useClearByFocusCell({
-            value: resolvedValue,
-            setValue: onInternalValueChange
-        });
+    const [{ onPressOut }, getCellOnLayoutHandler] = useClearByFocusCell({
+        value: resolvedValue,
+        setValue: onInternalValueChange
+    });
 
-        return (
-            <CodeField
-                ref={ref}
-                onPressOut={onPressOut}
-                value={resolvedValue}
-                onChangeText={onInternalValueChange}
-                cellCount={cellCount}
-                className={cn('flex-row justify-between gap-1', className)}
-                keyboardType="number-pad"
-                textContentType="oneTimeCode"
-                {...props}
-                renderCell={({ index, symbol, isFocused }) => (
-                    <View
-                        key={index}
-                        className={cn(
-                            'size-14 aspect-square flex shrink items-center justify-center border border-input rounded-md bg-background',
-                            isFocused && 'border-primary',
-                            cellClassName
-                        )}
-                        onLayout={getCellOnLayoutHandler(index)}
-                    >
-                        <Text className="text-xl text-secondary-foreground">
-                            {symbol || (isFocused ? <Cursor /> : null)}
-                        </Text>
-                    </View>
-                )}
-            />
-        );
-    }
-);
-
-InputOTP.displayName = 'InputOTP';
+    return (
+        <CodeField
+            onPressOut={onPressOut}
+            value={resolvedValue}
+            onChangeText={onInternalValueChange}
+            cellCount={cellCount}
+            className={cn('flex-row justify-between gap-1', className)}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            {...props}
+            renderCell={({ index, symbol, isFocused }) => (
+                <View
+                    key={index}
+                    className={cn(
+                        'size-14 aspect-square flex shrink items-center justify-center border border-input rounded-md bg-background',
+                        isFocused && 'border-primary',
+                        cellClassName
+                    )}
+                    onLayout={getCellOnLayoutHandler(index)}
+                >
+                    <Text className="text-xl text-secondary-foreground">
+                        {symbol || (isFocused ? <Cursor /> : null)}
+                    </Text>
+                </View>
+            )}
+        />
+    );
+}
 
 export { InputOTP };

@@ -1,15 +1,19 @@
+import { Slider as RNSlider } from '@react-native-assets/slider';
 import { cssInterop } from 'nativewind';
-import RNCSlider from '@react-native-community/slider';
+import { cn } from 'src/utils/cn';
 
-const Slider = cssInterop(RNCSlider, {
-    className: 'style',
-    minimumTrackTintColorClassName: {
-        target: false,
-        nativeStyleToProp: { color: 'minimumTrackTintColor' }
-    },
+const CustomizedSlider = cssInterop(RNSlider as unknown as React.ComponentType<any>, {
+    trackClassName: 'trackStyle',
+    thumbClassName: 'thumbStyle',
+    minTrackClassName: 'minTrackStyle',
+    maxTrackClassName: 'maxTrackStyle',
     maximumTrackTintColorClassName: {
         target: false,
         nativeStyleToProp: { color: 'maximumTrackTintColor' }
+    },
+    minimumTrackTintColorClassName: {
+        target: false,
+        nativeStyleToProp: { color: 'minimumTrackTintColor' }
     },
     thumbTintColorClassName: {
         target: false,
@@ -17,6 +21,18 @@ const Slider = cssInterop(RNCSlider, {
     }
 });
 
-Slider.displayName = 'Slider';
+function Slider({
+    thumbClassName,
+    trackClassName,
+    ...props
+}: React.ComponentProps<typeof CustomizedSlider> & React.RefAttributes<typeof CustomizedSlider>) {
+    return (
+        <CustomizedSlider
+            thumbClassName={cn('bg-white size-6 rounded-full shadow-xl', thumbClassName)}
+            trackClassName={cn('bg-muted-foreground h-[1.5]', trackClassName)}
+            {...props}
+        />
+    );
+}
 
 export { Slider };

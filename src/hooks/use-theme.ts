@@ -1,49 +1,18 @@
-import { useEffect } from 'react';
-import useThemeStore from 'src/stores/theme';
-import { DEFAULT_COLOR_SCHEME, THEMES } from 'src/constants/theme';
-import { useColorScheme as useNativewindColorScheme, vars } from 'nativewind';
-import { Theme as NavigationTheme, DefaultTheme } from '@react-navigation/native';
+import { useColorScheme } from 'nativewind';
+import { DEFAULT_COLOR_SCHEME, NAV_THEME } from 'src/constants/theme';
+import { useThemeStore } from 'src/stores/theme';
 
 export function useTheme() {
-    const { colorScheme, setColorScheme } = useNativewindColorScheme();
-    const { loading, theme, colorSchemeSetting, setTheme, setColorSchemeSetting } = useThemeStore();
-
-    useEffect(() => {
-        setColorScheme(colorSchemeSetting);
-    }, [colorSchemeSetting]);
-
-    const toggleAndStoreColorScheme = () => {
-        const newColorScheme = colorScheme === 'light' ? 'dark' : 'light';
-        setColorSchemeSetting(newColorScheme);
-    };
+    const { colorScheme } = useColorScheme();
+    const { loading, colorSchemeSetting, setColorSchemeSetting } = useThemeStore();
 
     const resolveColorScheme = colorScheme ?? DEFAULT_COLOR_SCHEME;
-    const isDarkColorScheme = resolveColorScheme === 'dark';
-    const colorMap = THEMES[theme][resolveColorScheme];
-
-    const navTheme: NavigationTheme = {
-        dark: isDarkColorScheme,
-        colors: {
-            primary: `hsl(${colorMap['--primary']})`,
-            background: `hsl(${colorMap['--background']})`,
-            card: `hsl(${colorMap['--card']})`,
-            text: `hsl(${colorMap['--foreground']})`,
-            border: `hsl(${colorMap['--border']})`,
-            notification: `hsl(${colorMap['--destructive']})`
-        },
-        fonts: DefaultTheme.fonts
-    };
 
     return {
-        loaded: !loading,
-        theme,
-        navTheme,
+        loading,
+        navTheme: NAV_THEME[resolveColorScheme],
         colorScheme: resolveColorScheme,
         colorSchemeSetting,
-        colors: vars(colorMap),
-        isDarkColorScheme,
-        setTheme,
-        setColorSchemeSetting,
-        toggleColorScheme: toggleAndStoreColorScheme
+        setColorSchemeSetting
     };
 }

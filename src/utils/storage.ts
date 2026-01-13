@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface StorageInterface {
+interface IStorage {
     getItem(key: string): Promise<string | null>;
     setItem(key: string, value: string): Promise<void>;
     removeItem(key: string): Promise<void>;
     clear(): Promise<void>;
 }
 
-class AsyncStorageAdapter implements StorageInterface {
+class AsyncStorageAdapter implements IStorage {
     async getItem(key: string) {
         try {
             return await AsyncStorage.getItem(key);
@@ -42,28 +42,4 @@ class AsyncStorageAdapter implements StorageInterface {
     }
 }
 
-class StorageManager implements StorageInterface {
-    private storage: StorageInterface;
-
-    constructor() {
-        this.storage = new AsyncStorageAdapter();
-    }
-
-    async getItem(key: string) {
-        return this.storage.getItem(key);
-    }
-
-    async setItem(key: string, value: string) {
-        await this.storage.setItem(key, value);
-    }
-
-    async removeItem(key: string) {
-        await this.storage.removeItem(key);
-    }
-
-    async clear() {
-        await this.storage.clear();
-    }
-}
-
-export const Storage = new StorageManager();
+export const Storage = new AsyncStorageAdapter();

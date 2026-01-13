@@ -1,6 +1,19 @@
 {
-  "aliases": {
-    "components": "src/components",
-    "lib": "src"
-  }
+    "$schema": "https://ui.shadcn.com/schema.json",
+    "style": "new-york",
+    "rsc": false,
+    "tsx": true,
+    "tailwind": {
+        "config": "tailwind.config.js",
+        "css": "src/styles/global.css",
+        "baseColor": "neutral",
+        "cssVariables": true
+    },
+    "aliases": {
+        "components": "src/components",
+        "utils": "src/utils/cn",
+        "ui": "src/components/ui",
+        "lib": "src/lib",
+        "hooks": "src/hooks"
+    }
 }

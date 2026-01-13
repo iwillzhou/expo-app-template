@@ -1,3 +1,2 @@
-import * as authService from './auth';
-
-export { authService };
+export * as authService from './auth';
+export * from './billing';

@@ -1,6 +1,14 @@
-import { supabase } from 'src/api/core';
 import type { VerifyEmailOtpParams } from '@supabase/supabase-js';
+import { supabase } from 'src/api/core';
 
+// 获取当前客户端本地缓存的 Session（不会请求 Supabase 服务器）
+export async function getSession() {
+    const { data, error } = await supabase.auth.getSession();
+    if (error) throw error;
+    return data;
+}
+
+// 向 Supabase Auth 服务请求当前用户
 export async function getUser() {
     const { data, error } = await supabase.auth.getUser();
     if (error) throw error;

@@ -1,13 +1,11 @@
-import { toBoolean } from 'src/utils/to-boolean';
-import { Redirect, useLocalSearchParams } from 'expo-router';
+import { Redirect } from 'expo-router';
+import { useLaunchInfoStore } from 'src/stores/launch-info';
 
 export default function MainScreen() {
-    const { isFirstLaunch, isConnected } = useLocalSearchParams();
+    const { isFirstLaunch } = useLaunchInfoStore();
 
-    if (toBoolean(isFirstLaunch)) {
+    if (isFirstLaunch) {
         return <Redirect href="/onboarding" />;
-    } else if (toBoolean(isConnected)) {
-        return <Redirect href="/launch" />;
     }
-    return <Redirect href="/home" />;
+    return <Redirect href="/launch" />;
 }

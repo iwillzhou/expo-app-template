@@ -1,8 +1,8 @@
-import { cn } from 'src/utils';
+import { cn } from 'src/utils/cn';
 import { View, TextInput } from 'react-native';
+import { Eye, EyeOff } from 'lucide-react-native';
+import { Input, Button, Icon } from 'src/components/ui';
 import { useState, type ComponentPropsWithoutRef } from 'react';
-import { Input, Button } from './ui';
-import { ViewOffSlashStroke, ViewStroke } from './icons';
 
 export const PasswordInput = ({ className, ...props }: ComponentPropsWithoutRef<typeof TextInput>) => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -20,7 +20,7 @@ export const PasswordInput = ({ className, ...props }: ComponentPropsWithoutRef<
                 className="absolute right-4 top-1/2 -translate-y-1/2"
                 onPress={() => setSecureTextEntry(!secureTextEntry)}
             >
-                {secureTextEntry ? <ViewOffSlashStroke /> : <ViewStroke />}
+                <Icon as={secureTextEntry ? EyeOff : Eye} size={20} />
             </Button>
         </View>
     );

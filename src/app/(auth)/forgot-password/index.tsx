@@ -1,28 +1,26 @@
-import { z } from 'zod';
-import { Alert, View } from 'react-native';
+import * as burnt from 'burnt';
+import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Text } from 'src/components/ui';
-import { useVerifyEmailSchema } from 'src/hooks/schema/auth';
 import { useResetPasswordForEmail } from 'src/hooks/queries/auth';
-
-type FormData = z.infer<ReturnType<typeof useVerifyEmailSchema>>;
+import { useVerifyEmailSchema, VerifyEmailFormData } from 'src/hooks/schema/auth';
 
 export default function ForgotPassword() {
-    const { t } = useTranslation('auth', { keyPrefix: 'forgot_password' });
+    const { t } = useTranslation('auth', { keyPrefix: 'forgotPassword' });
     const resetPasswordForEmailMutation = useResetPasswordForEmail();
 
     const schema = useVerifyEmailSchema();
-    const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+    const { control, handleSubmit } = useForm<VerifyEmailFormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
             resetPasswordForEmailMutation.mutate(data.email);
         },
         errors => {
-            const msg = Object.values(errors).find(item => !!item.message)?.message;
-            Alert.alert(msg!);
+            const msg = Object.values(errors).find(item => !!item.message)?.message ?? '';
+            burnt.toast({ title: msg, preset: 'error' });
         }
     );
 
@@ -40,7 +38,7 @@ export default function ForgotPassword() {
                         <Input
                             className="native:h-16"
                             autoCapitalize={'none'}
-                            placeholder={t('email_placeholder')}
+                            placeholder={t('emailPlaceholder')}
                             value={value}
                             onChangeText={onChange}
                         />
@@ -52,7 +50,7 @@ export default function ForgotPassword() {
                     disabled={resetPasswordForEmailMutation.isPending}
                     onPress={onSubmit}
                 >
-                    <Text>{t('submit_btn')}</Text>
+                    <Text>{t('submitBtn')}</Text>
                 </Button>
             </View>
         </View>

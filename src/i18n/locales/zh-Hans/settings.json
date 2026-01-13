@@ -1,0 +1,33 @@
+{
+    "index": {
+        "account": "账号和安全",
+        "notification": "通知",
+        "language": "语言",
+        "fontScale": "字号",
+        "darkMode": "深色模式",
+        "feedback": "反馈",
+        "about": "关于",
+        "switchAccount": "切换账号",
+        "logout": "退出登录"
+    },
+    "account": {},
+    "notification": {},
+    "language": {
+        "system": "跟随系统"
+    },
+    "fontScale": {
+        "system": "跟随系统",
+        "systemDesc": "开启后字体大小将跟随系统设置",
+        "default": "默认",
+        "preview1": "如何改变字体大小",
+        "preview2": "你可以拖动滑块来调整字体大小",
+        "preview3": "在使用过程中遇到问题，请反馈给我们"
+    },
+    "darkMode": {
+        "system": "跟随系统",
+        "dark": "深色模式",
+        "light": "浅色模式"
+    },
+    "feedback": {},
+    "about": {}
+}

@@ -1,29 +1,27 @@
-import { z } from 'zod';
-import { View, Alert } from 'react-native';
+import * as burnt from 'burnt';
+import { View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, Text } from 'src/components/ui';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUpdatePassword } from 'src/hooks/queries/auth';
 import { PasswordInput } from 'src/components/password-input';
-import { useResetPasswordSchema } from 'src/hooks/schema/auth';
-
-type FormData = z.infer<ReturnType<typeof useResetPasswordSchema>>;
+import { useResetPasswordSchema, ResetPasswordFormData } from 'src/hooks/schema/auth';
 
 export default function UpdatePassword() {
-    const { t } = useTranslation('auth', { keyPrefix: 'forgot_password_update' });
+    const { t } = useTranslation('auth', { keyPrefix: 'forgotPasswordUpdate' });
     const updatePasswordMutation = useUpdatePassword();
 
     const schema = useResetPasswordSchema();
-    const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+    const { control, handleSubmit } = useForm<ResetPasswordFormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
             updatePasswordMutation.mutate(data.password);
         },
         errors => {
-            const msg = Object.values(errors).find(item => !!item.message)?.message;
-            Alert.alert(msg!);
+            const msg = Object.values(errors).find(item => !!item.message)?.message ?? '';
+            burnt.toast({ title: msg, preset: 'error' });
         }
     );
 
@@ -38,7 +36,7 @@ export default function UpdatePassword() {
                     name="password"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                        <PasswordInput value={value} onChangeText={onChange} placeholder={t('password_placeholder')} />
+                        <PasswordInput value={value} onChangeText={onChange} placeholder={t('passwordPlaceholder')} />
                     )}
                 />
                 <Controller
@@ -48,12 +46,12 @@ export default function UpdatePassword() {
                         <PasswordInput
                             value={value}
                             onChangeText={onChange}
-                            placeholder={t('confirm_password_placeholder')}
+                            placeholder={t('confirmPasswordPlaceholder')}
                         />
                     )}
                 />
                 <Button size="lg" className="mt-4" disabled={updatePasswordMutation.isPending} onPress={onSubmit}>
-                    <Text>{t('submit_btn')}</Text>
+                    <Text>{t('submitBtn')}</Text>
                 </Button>
             </View>
         </View>

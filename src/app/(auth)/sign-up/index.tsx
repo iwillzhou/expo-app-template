@@ -1,31 +1,29 @@
-import { z } from 'zod';
+import * as burnt from 'burnt';
 import { Link } from 'expo-router';
-import { Alert, View, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSignUp } from 'src/hooks/queries/auth';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSignUpSchema } from 'src/hooks/schema/auth';
+import { View, ScrollView } from 'react-native';
 import { Button, Input, Text } from 'src/components/ui';
-import { SocialLogin } from 'src/components/social-login';
 import { PasswordInput } from 'src/components/password-input';
-
-type FormData = z.infer<ReturnType<typeof useSignUpSchema>>;
+import { SocialConnections } from 'src/components/social-connections';
+import { useSignUpSchema, SignUpFormData } from 'src/hooks/schema/auth';
 
 export default function SignUp() {
-    const { t } = useTranslation('auth', { keyPrefix: 'sign_up' });
+    const { t } = useTranslation('auth', { keyPrefix: 'signUp' });
     const signUpMutation = useSignUp();
 
     const schema = useSignUpSchema();
-    const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+    const { control, handleSubmit } = useForm<SignUpFormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
             signUpMutation.mutate(data);
         },
         errors => {
-            const msg = Object.values(errors).find(item => !!item.message)?.message;
-            Alert.alert(msg!);
+            const msg = Object.values(errors).find(item => !!item.message)?.message ?? '';
+            burnt.toast({ title: msg, preset: 'error' });
         }
     );
 
@@ -42,7 +40,7 @@ export default function SignUp() {
                         <Input
                             className="native:h-16"
                             autoCapitalize={'none'}
-                            placeholder={t('email_placeholder')}
+                            placeholder={t('emailPlaceholder')}
                             value={value}
                             onChangeText={onChange}
                         />
@@ -55,7 +53,7 @@ export default function SignUp() {
                         <Input
                             className="native:h-16"
                             autoCapitalize={'none'}
-                            placeholder={t('username_placeholder')}
+                            placeholder={t('usernamePlaceholder')}
                             value={value}
                             onChangeText={onChange}
                         />
@@ -65,22 +63,22 @@ export default function SignUp() {
                     name="password"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                        <PasswordInput value={value} onChangeText={onChange} placeholder={t('password_placeholder')} />
+                        <PasswordInput value={value} onChangeText={onChange} placeholder={t('passwordPlaceholder')} />
                     )}
                 />
                 <Button size="lg" className="mt-4" disabled={signUpMutation.isPending} onPress={onSubmit}>
-                    <Text>{t('submit_btn')}</Text>
+                    <Text>{t('submitBtn')}</Text>
                 </Button>
             </View>
-            <SocialLogin />
-            <View className="flex-row items-baseline justify-center w-full mb-4">
-                <Text>{t('sign_in_prefix')}</Text>
+            <View className="flex-row items-baseline justify-center w-full mt-4">
+                <Text>{t('signInPrefix')}</Text>
                 <Link href="/log-in" asChild replace>
                     <Button variant="link" className="!px-1">
-                        <Text>{t('sign_in_link')}</Text>
+                        <Text>{t('signInLink')}</Text>
                     </Button>
                 </Link>
             </View>
+            <SocialConnections className="mt-4" />
         </ScrollView>
     );
 }

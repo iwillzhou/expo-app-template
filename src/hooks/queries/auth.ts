@@ -1,31 +1,22 @@
-import * as Burnt from 'burnt';
+import * as burnt from 'burnt';
 import { router } from 'expo-router';
-import { Alert } from 'react-native';
+import { authService, supabase } from 'src/api';
 import { useTranslation } from 'react-i18next';
-import { authService } from 'src/api/services';
-import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const authQueries = createQueryKeys('auth', {
-    info: {
-        queryKey: null,
-        queryFn: () => authService.getUser()
-    }
-});
-
-export const useUser = () => useQuery(authQueries.info);
+export const useUser = () => useQuery({ queryKey: ['user'], queryFn: authService.getUser });
 
 export function useLogInWithPassword() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: authService.logInWithPassword,
-        onSuccess(data) {
-            queryClient.setQueryData(authQueries.info.queryKey, data.user);
+        onSuccess: data => {
+            queryClient.setQueryData(['user'], data.user);
             router.push('/');
         },
         onError: error => {
             console.error('Log in failed:', error.message);
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
@@ -33,9 +24,21 @@ export function useLogInWithPassword() {
 export function useSignUp() {
     return useMutation({
         mutationFn: authService.signUp,
-        onSuccess(data, variables) {
-            const { email } = variables;
+        onSuccess: async (data, variables) => {
+            const { email, username } = variables;
             if (!data.session) {
+                if (data.user?.id) {
+                    console.warn(data.user?.id);
+                    const { error: profileError } = await supabase.from('profiles').upsert([
+                        {
+                            id: data.user.id,
+                            username
+                        }
+                    ]);
+                    if (profileError) {
+                        console.error('Create profile failed:', profileError.message);
+                    }
+                }
                 router.push({
                     pathname: '/sign-up/otp',
                     params: { email }
@@ -43,7 +46,7 @@ export function useSignUp() {
             }
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
@@ -55,34 +58,34 @@ export function useVerifySignUpEmailOtp() {
             router.push('/sign-up/success');
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
 
 export function useResendSignUpEmailOtp() {
-    const { t } = useTranslation('auth', { keyPrefix: 'sign_up_otp' });
+    const { t } = useTranslation('auth');
     return useMutation({
         mutationFn: authService.resend,
         onSuccess: () => {
-            Burnt.toast({
-                title: t('send_otp_success_info'),
+            burnt.toast({
+                title: t('signUpOtp.sendOtpSuccessInfo'),
                 preset: 'done'
             });
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
 
 export function useResetPasswordForEmail() {
-    const { t } = useTranslation('auth', { keyPrefix: 'forgot_password_otp' });
+    const { t } = useTranslation('auth');
     return useMutation({
         mutationFn: authService.resetPasswordForEmail,
         onSuccess: (_, email) => {
-            Burnt.toast({
-                title: t('send_otp_success_info'),
+            burnt.toast({
+                title: t('forgotPasswordOtp.sendOtpSuccessInfo'),
                 preset: 'done'
             });
             router.push({
@@ -91,23 +94,23 @@ export function useResetPasswordForEmail() {
             });
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
 
 export function useResendResetPasswordEmailOtp() {
-    const { t } = useTranslation('auth', { keyPrefix: 'forgot_password_otp' });
+    const { t } = useTranslation('auth');
     return useMutation({
         mutationFn: authService.resetPasswordForEmail,
         onSuccess: () => {
-            Burnt.toast({
-                title: t('send_otp_success_info'),
+            burnt.toast({
+                title: t('forgotPasswordOtp.sendOtpSuccessInfo'),
                 preset: 'done'
             });
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
@@ -119,7 +122,7 @@ export function useVerifyResetPasswordEmailOtp() {
             router.push('/forgot-password/update');
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
@@ -131,7 +134,7 @@ export function useUpdatePassword() {
             router.push('/forgot-password/success');
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }
@@ -141,12 +144,12 @@ export function useSignOut() {
     return useMutation({
         mutationFn: authService.signOut,
         onSuccess() {
-            queryClient.setQueryData(authQueries.info.queryKey, null);
+            queryClient.setQueryData(['user'], null);
             queryClient.removeQueries();
             router.push('/');
         },
         onError: error => {
-            Alert.alert(error.message);
+            burnt.toast({ title: error.message, preset: 'error' });
         }
     });
 }

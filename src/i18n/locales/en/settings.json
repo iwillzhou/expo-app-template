@@ -1,0 +1,33 @@
+{
+    "index": {
+        "account": "Account",
+        "notification": "Notification",
+        "language": "Language",
+        "fontScale": "Font size",
+        "darkMode": "Dark mode",
+        "feedback": "Feedback",
+        "about": "About",
+        "switchAccount": "Switch Account",
+        "logout": "Log out"
+    },
+    "account": {},
+    "notification": {},
+    "language": {
+        "system": "Follow system"
+    },
+    "fontScale": {
+        "system": "Follow system",
+        "systemDesc": "Enable this to make the font size follow the system",
+        "default": "Default",
+        "preview1": "How to change font size?",
+        "preview2": "You can drag the slider to change the font size",
+        "preview3": "If you encounter any issues during use please let us know"
+    },
+    "darkMode": {
+        "system": "Follow system",
+        "dark": "Dark mode",
+        "light": "Light mode"
+    },
+    "feedback": {},
+    "about": {}
+}

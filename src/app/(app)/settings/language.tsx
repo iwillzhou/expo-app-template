@@ -1,68 +1,49 @@
+import { Fragment } from 'react';
 import { View } from 'react-native';
-import { Storage } from 'src/utils/storage';
-import { getLocales } from 'expo-localization';
+import { Language } from 'src/i18n/config';
+import { Check } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import { TickStroke } from 'src/components/icons';
-import { Fragment, useEffect, useState } from 'react';
-import { Button, Separator, Switch, Text } from 'src/components/ui';
-import { LANGUAGE_SETTING_STORAGE_KEY, LANGUAGE_SYSTEM_OPTION } from 'src/i18n';
+import { getLanguageOptions } from 'src/i18n/utils/get-language-options';
+import { Button, Icon, Separator, Text, Switch } from 'src/components/ui';
+import { LANG_SETTING_SYSTEM, useLanguageStore } from 'src/stores/language';
 
 export default function LanguageSetting() {
-    const { t, i18n } = useTranslation('settings', { keyPrefix: 'language' });
-    const resource = i18n.services.resourceStore.data;
-    const [langSetting, setLangeSetting] = useState<string>();
+    const { t, i18n } = useTranslation('settings');
+    const { languageSetting, setLanguageSetting } = useLanguageStore();
 
-    useEffect(() => {
-        async function fetchLangSetting() {
-            const storeLangSetting = await Storage.getItem(LANGUAGE_SETTING_STORAGE_KEY);
-            setLangeSetting(storeLangSetting || LANGUAGE_SYSTEM_OPTION);
-        }
-        fetchLangSetting();
-    }, []);
-
-    useEffect(() => {
-        if (!langSetting) return;
-        if (langSetting === LANGUAGE_SYSTEM_OPTION) {
-            const { languageTag } = getLocales()[0];
-            i18n.changeLanguage(languageTag);
-        } else {
-            i18n.changeLanguage(langSetting);
-        }
-        Storage.setItem(LANGUAGE_SETTING_STORAGE_KEY, langSetting!);
-    }, [langSetting]);
+    const resolvedLanguage = i18n.resolvedLanguage;
+    const options = getLanguageOptions(resolvedLanguage as Language);
 
     return (
         <View className="grid grid-flow-col p-4 gap-4">
-            <View className="bg-secondary rounded-lg px-4 py-2">
+            <View className="bg-secondary rounded-lg p-4">
                 <View className="flex-row justify-between items-center">
-                    <View className="flex-shrink">
-                        <Text>{t('system')}</Text>
-                        <Text className="text-muted-foreground">{t('system_desc')}</Text>
-                    </View>
+                    <Text>{t('language.system')}</Text>
                     <Switch
-                        checked={langSetting === LANGUAGE_SYSTEM_OPTION}
-                        onCheckedChange={checked => {
-                            if (checked) {
-                                setLangeSetting(LANGUAGE_SYSTEM_OPTION);
-                            } else {
-                                setLangeSetting(i18n.resolvedLanguage);
-                            }
-                        }}
+                        checked={languageSetting === 'system'}
+                        onCheckedChange={checked =>
+                            setLanguageSetting(checked ? LANG_SETTING_SYSTEM : resolvedLanguage!)
+                        }
                     />
                 </View>
             </View>
             <View className="bg-secondary rounded-lg">
-                {Object.keys(resource).map((lang, index) => (
-                    <Fragment key={lang}>
+                {options.map(({ label, value, localizedName }, index) => (
+                    <Fragment key={value}>
                         {index !== 0 && <Separator className="mx-4 my-0 w-auto" />}
                         <Button
                             variant="secondary"
-                            className="flex-row justify-between native:h-14"
-                            disabled={langSetting === LANGUAGE_SYSTEM_OPTION}
-                            onPress={() => setLangeSetting(lang)}
+                            className="flex-row justify-between items-center h-auto min-h-14"
+                            onPress={() => setLanguageSetting(value)}
+                            disabled={languageSetting === LANG_SETTING_SYSTEM}
                         >
-                            <Text className="font-normal">{resource[lang]?.display as string}</Text>
-                            {i18n.resolvedLanguage === lang && <TickStroke className="text-foreground" />}
+                            <View className="flex-col justify-center items-start">
+                                <Text className="text-foreground font-normal leading-normal">{label}</Text>
+                                <Text className="text-xs/tight text-secondary-foreground opacity-75">
+                                    {localizedName}
+                                </Text>
+                            </View>
+                            {resolvedLanguage === value && <Icon as={Check} className="text-foreground" />}
                         </Button>
                     </Fragment>
                 ))}

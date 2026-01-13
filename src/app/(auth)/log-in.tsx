@@ -1,23 +1,21 @@
-import { z } from 'zod';
 import { Link } from 'expo-router';
+import * as burnt from 'burnt';
 import { useTranslation } from 'react-i18next';
+import { View, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLogInSchema } from 'src/hooks/schema/auth';
-import { View, Alert, ScrollView } from 'react-native';
 import { Button, Input, Text } from 'src/components/ui';
-import { SocialLogin } from 'src/components/social-login';
 import { PasswordInput } from 'src/components/password-input';
 import { useLogInWithPassword } from 'src/hooks/queries/auth';
-
-type FormData = z.infer<ReturnType<typeof useLogInSchema>>;
+import { SocialConnections } from 'src/components/social-connections';
+import { useLogInSchema, LogInFormData } from 'src/hooks/schema/auth';
 
 export default function LogIn() {
-    const { t } = useTranslation('auth', { keyPrefix: 'log_in' });
+    const { t } = useTranslation('auth', { keyPrefix: 'logIn' });
     const logInMutation = useLogInWithPassword();
 
     const schema = useLogInSchema();
-    const { control, handleSubmit } = useForm<FormData>({ resolver: zodResolver(schema) });
+    const { control, handleSubmit } = useForm<LogInFormData>({ resolver: zodResolver(schema) });
 
     const onSubmit = handleSubmit(
         data => {
@@ -26,14 +24,14 @@ export default function LogIn() {
         errors => {
             const msg = Object.values(errors)
                 .map(item => item.message)
-                .join();
-            Alert.alert(msg!);
+                .join(';');
+            burnt.toast({ title: msg, preset: 'error' });
         }
     );
 
     return (
         <ScrollView className="flex-grow px-7">
-            <View className="my-[64px]">
+            <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
             </View>
             <View className="grid gap-3">
@@ -44,7 +42,7 @@ export default function LogIn() {
                         <Input
                             className="native:h-16"
                             autoCapitalize={'none'}
-                            placeholder={t('email_placeholder')}
+                            placeholder={t('emailPlaceholder')}
                             value={value}
                             onChangeText={onChange}
                         />
@@ -58,12 +56,12 @@ export default function LogIn() {
                             <PasswordInput
                                 value={value}
                                 onChangeText={onChange}
-                                placeholder={t('password_placeholder')}
+                                placeholder={t('passwordPlaceholder')}
                             />
                             <View className="flex flex-row-reverse">
                                 <Link href="/forgot-password" asChild>
                                     <Button variant="link" className="!px-0">
-                                        <Text>{t('forgot_password')}</Text>
+                                        <Text>{t('forgotPassword')}</Text>
                                     </Button>
                                 </Link>
                             </View>
@@ -71,18 +69,18 @@ export default function LogIn() {
                     )}
                 />
                 <Button size="lg" className="mt-4" disabled={logInMutation.isPending} onPress={onSubmit}>
-                    <Text>{t('submit_btn')}</Text>
+                    <Text>{t('submitBtn')}</Text>
                 </Button>
             </View>
-            <SocialLogin className="mb-24" />
-            <View className="flex-row items-baseline justify-center absolute bottom-8 w-full">
-                <Text>{t('sign_up_prefix')}</Text>
+            <View className="flex-row items-baseline justify-center mt-4">
+                <Text>{t('signUpPrefix')}</Text>
                 <Link href="/sign-up" asChild replace>
                     <Button variant="link" className="!px-1">
-                        <Text>{t('sign_up_link')}</Text>
+                        <Text>{t('signUpLink')}</Text>
                     </Button>
                 </Link>
             </View>
+            <SocialConnections className="mt-4" />
         </ScrollView>
     );
 }

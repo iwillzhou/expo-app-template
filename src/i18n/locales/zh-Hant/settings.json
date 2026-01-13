@@ -1,0 +1,33 @@
+{
+    "index": {
+        "account": "帳號與安全",
+        "notification": "通知",
+        "language": "語言",
+        "fontScale": "字體大小",
+        "darkMode": "深色模式",
+        "feedback": "回饋",
+        "about": "關於",
+        "switchAccount": "切換帳號",
+        "logout": "登出"
+    },
+    "account": {},
+    "notification": {},
+    "language": {
+        "system": "跟隨系統"
+    },
+    "fontScale": {
+        "system": "跟隨系統",
+        "systemDesc": "開啟後字體大小將跟隨系統設定",
+        "default": "預設",
+        "preview1": "如何變更字體大小",
+        "preview2": "你可以拖動滑桿來調整字體大小",
+        "preview3": "在使用過程中遇到問題請回饋給我們"
+    },
+    "darkMode": {
+        "system": "跟隨系統",
+        "dark": "深色模式",
+        "light": "淺色模式"
+    },
+    "feedback": {},
+    "about": {}
+}

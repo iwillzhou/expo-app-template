@@ -1,8 +1,9 @@
-import 'ts-node/register';
-import { ExpoConfig } from 'expo/config';
-import { getAppName, getAppScheme, getProjectId, getUniqueIdentifier, getUpdatesUrl } from './app.utils';
+import 'tsx/cjs';
+import { ConfigContext, ExpoConfig } from 'expo/config';
+import { getAndroidPackage, getAppName, getAppScheme, getIOSBundleID, getLocales } from './app.util';
 
-const config: ExpoConfig = {
+export default ({ config }: ConfigContext): ExpoConfig => ({
+    ...config,
     name: getAppName(),
     slug: 'expo-app-template',
     version: '1.0.0',
@@ -13,55 +14,42 @@ const config: ExpoConfig = {
     newArchEnabled: true,
     ios: {
         supportsTablet: true,
-        bundleIdentifier: getUniqueIdentifier(),
+        bundleIdentifier: getIOSBundleID(),
         infoPlist: {
             CFBundleAllowMixedLocalizations: true
         }
     },
     android: {
+        package: getAndroidPackage(),
         adaptiveIcon: {
-            foregroundImage: './assets/images/adaptive-icon.png',
-            backgroundColor: '#ffffff'
+            backgroundColor: '#E6F4FE',
+            foregroundImage: './assets/images/android-icon-foreground.png',
+            backgroundImage: './assets/images/android-icon-background.png',
+            monochromeImage: './assets/images/android-icon-monochrome.png'
         },
-        package: getUniqueIdentifier()
+        edgeToEdgeEnabled: true,
+        predictiveBackGestureEnabled: false
     },
-    web: {
-        bundler: 'metro',
-        output: 'static',
-        favicon: './assets/images/favicon.png'
-    },
-    locales: {
-        en: './src/i18n/locales/en.json',
-        zh: './src/i18n/locales/zh.json'
-    },
+    locales: getLocales(),
     plugins: [
         'expo-router',
-        'expo-localization',
         'expo-secure-store',
+        'expo-localization',
         [
             'expo-splash-screen',
             {
                 image: './assets/images/splash-icon.png',
-                imageWidth: 60,
-                backgroundColor: '#221F1F'
+                imageWidth: 200,
+                resizeMode: 'contain',
+                backgroundColor: '#ffffff',
+                dark: {
+                    backgroundColor: '#000000'
+                }
             }
-        ],
-        "./plugins/custom-android-app-name"
+        ]
     ],
     experiments: {
-        typedRoutes: true
-    },
-    updates: {
-        url: getUpdatesUrl()
-    },
-    runtimeVersion: {
-        policy: 'fingerprint'
-    },
-    extra: {
-        eas: {
-            projectId: getProjectId()
-        }
+        typedRoutes: true,
+        reactCompiler: true
     }
-};
-
-export default config;
+});

@@ -1,59 +1,24 @@
-import React from 'react';
-import { Platform } from 'react-native';
 import { Link, Tabs } from 'expo-router';
-import { Button } from 'src/components/ui';
-import { useTheme } from 'src/hooks/use-theme';
-import { useTranslation } from 'react-i18next';
-import { PlatformPressable } from '@react-navigation/elements';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useStore as useFontSizeStore } from 'src/stores/font-size';
-import { HomeStroke, HomeSolid, UserStroke, UserSolid, SettingStroke } from 'src/components/icons';
+import { Settings } from 'lucide-react-native';
+import { Button, Icon } from 'src/components/ui';
 
 export default function TabsLayout() {
-    const { t } = useTranslation();
-    const { navTheme } = useTheme();
-    const insets = useSafeAreaInsets();
-    const { followSystem } = useFontSizeStore();
-
     return (
         <Tabs
             screenOptions={{
-                tabBarAllowFontScaling: followSystem,
-                headerTitleAllowFontScaling: followSystem,
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
-                headerTitleStyle: {
-                    fontSize: 16
-                },
-                headerStyle: {
-                    height: (Platform.OS === 'android' ? 56 : 38) + insets.top
-                },
-                tabBarButton: props => <PlatformPressable {...props} pressColor={navTheme.colors.background} />,
                 headerRight: () => (
                     <Link href="/settings" asChild>
                         <Button variant="ghost" size="icon" className="mx-4 rounded-full">
-                            <SettingStroke className="text-foreground" />
+                            <Icon as={Settings} />
                         </Button>
                     </Link>
                 )
             }}
         >
-            <Tabs.Screen
-                name="home"
-                options={{
-                    title: t('home'),
-                    tabBarIcon: ({ color, focused }) =>
-                        focused ? <HomeSolid color={color} /> : <HomeStroke color={color} />
-                }}
-            />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: t('profile'),
-                    tabBarIcon: ({ color, focused }) =>
-                        focused ? <UserSolid color={color} /> : <UserStroke color={color} />
-                }}
-            />
+            <Tabs.Screen name="home" options={{ title: 'home' }} />
+            <Tabs.Screen name="profile" options={{ title: 'profile' }} />
         </Tabs>
     );
 }
