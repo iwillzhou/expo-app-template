@@ -1,0 +1,16 @@
+name: Build for Testing
+
+on:
+  push:
+    branches:
+      - feature/*
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-eas.yml
+    with:
+      app-env: testing
+      build-type: apk,ipa
+      hostname: ${{ vars.HOSTNAME }}
+    secrets:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

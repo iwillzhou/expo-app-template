@@ -1,0 +1,16 @@
+name: Build for Production
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-eas.yml
+    with:
+      app-env: production
+      build-type: apk,aab,ipa
+      hostname: ${{ vars.HOSTNAME }}
+    secrets:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
