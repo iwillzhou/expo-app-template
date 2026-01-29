@@ -1,11 +1,5 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
 
-export const COLOR_SCHEME_SYSTEM = 'system';
-export const COLOR_SCHEME_LIGHT = 'light';
-export const COLOR_SCHEME_DARK = 'dark';
-export const DEFAULT_COLOR_SCHEME = COLOR_SCHEME_LIGHT;
-export const DEFAULT_COLOR_SCHEME_SETTING = COLOR_SCHEME_SYSTEM;
-
 export const THEME = {
     light: {
         background: 'hsl(0 0% 100%)',

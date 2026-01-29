@@ -1,5 +1,5 @@
 import { cn } from 'src/utils/cn';
-import { remapProps } from 'nativewind';
+import { withUniwind } from 'uniwind';
 import { TextInput, View } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { CodeField, useClearByFocusCell, CodeFieldProps, Cursor } from 'react-native-confirmation-code-field';
@@ -11,8 +11,10 @@ type OTPInputProps = Omit<CodeFieldProps, 'rootStyle' | 'onChange' | 'renderCell
     onChange?: CodeFieldProps['onChangeText'];
 };
 
-remapProps(CodeField, {
-    className: 'rootStyle'
+const CustomizedCodeField = withUniwind(CodeField, {
+    rootStyle: {
+        fromClassName: 'className'
+    }
 });
 
 function InputOTP({
@@ -41,7 +43,7 @@ function InputOTP({
     });
 
     return (
-        <CodeField
+        <CustomizedCodeField
             onPressOut={onPressOut}
             value={resolvedValue}
             onChangeText={onInternalValueChange}

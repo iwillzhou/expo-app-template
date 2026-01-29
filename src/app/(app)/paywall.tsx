@@ -1,11 +1,14 @@
 import { cn } from 'src/utils/cn';
 import { Link } from 'expo-router';
+import { withUniwind } from 'uniwind';
 import { useEffect, useState } from 'react';
 import { Crown, Check, X } from 'lucide-react-native';
 import { View, Pressable, ScrollView } from 'react-native';
 import { Text, Card, Icon, Button } from 'src/components/ui';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOfferings, usePurchase, useRestorePurchase } from 'src/hooks/queries/billing';
+
+const StyledSafeAreaView = withUniwind(SafeAreaView);
 
 function FeatureItem({ title, description }: { title: string; description: string }) {
     return (
@@ -48,13 +51,13 @@ export default function PaywallScreen() {
     };
 
     return (
-        <SafeAreaView className="flex-1 bg-muted px-5">
+        <StyledSafeAreaView className="flex-1 bg-muted px-5">
             <Link href="../" asChild>
                 <Button variant="ghost" size="icon" className="rounded-full absolute top-2 right-2 z-10">
                     <Icon as={X} />
                 </Button>
             </Link>
-            <ScrollView className="flex-1  pt-10 bg-muted" showsVerticalScrollIndicator={false}>
+            <ScrollView className="flex-1 pt-10 bg-muted" showsVerticalScrollIndicator={false}>
                 <View className="items-center mb-8">
                     <Icon as={Crown} size={48} color="#111827" className="mb-3" />
                     <Text className="text-2xl font-semibold text-gray-900">Pro</Text>
@@ -118,6 +121,6 @@ export default function PaywallScreen() {
                     <Text className="text-sm text-secondary-foreground">Restore Purchase</Text>
                 </Button>
             </View>
-        </SafeAreaView>
+        </StyledSafeAreaView>
     );
 }

@@ -1,6 +1,6 @@
 import 'tsx/cjs';
 import { ConfigContext, ExpoConfig } from 'expo/config';
-import { getAndroidPackage, getAppName, getAppScheme, getIOSBundleID, getLocales } from './app.util';
+import { getAndroidPackage, getAppName, getAppScheme, getIOSBundleID, getLocales, getProjectId } from './app.util';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
     ...config,
@@ -51,5 +51,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     experiments: {
         typedRoutes: true,
         reactCompiler: true
+    },
+    extra: {
+        eas: {
+            projectId: getProjectId()
+        }
     }
 });

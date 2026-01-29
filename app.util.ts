@@ -7,6 +7,7 @@ import zhHant from './src/i18n/locales/zh-Hant/metadata.json';
 const DEFAULT_APP_NAME = en.ios.CFBundleDisplayName;
 
 const appID = 'com.mycompany.myapp';
+const projectId = 'bebdcc56-dc37-4915-a305-1d03b03f700a';
 
 export const isProduction = process.env.APP_ENV === 'production';
 
@@ -48,3 +49,7 @@ export const getLocales = () => {
         return accumulator;
     }, {});
 };
+
+export const getProjectId = () => projectId;
+
+export const getUpdatesUrl = () => `${process.env.HOSTNAME}/api/manifest?id=${projectId}&channel=${process.env.APP_ENV}`;

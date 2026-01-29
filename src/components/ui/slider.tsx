@@ -1,25 +1,8 @@
-import { Slider as RNSlider } from '@react-native-assets/slider';
-import { cssInterop } from 'nativewind';
 import { cn } from 'src/utils/cn';
+import { withUniwind } from 'uniwind';
+import { Slider as RNSlider } from '@react-native-assets/slider';
 
-const CustomizedSlider = cssInterop(RNSlider as unknown as React.ComponentType<any>, {
-    trackClassName: 'trackStyle',
-    thumbClassName: 'thumbStyle',
-    minTrackClassName: 'minTrackStyle',
-    maxTrackClassName: 'maxTrackStyle',
-    maximumTrackTintColorClassName: {
-        target: false,
-        nativeStyleToProp: { color: 'maximumTrackTintColor' }
-    },
-    minimumTrackTintColorClassName: {
-        target: false,
-        nativeStyleToProp: { color: 'minimumTrackTintColor' }
-    },
-    thumbTintColorClassName: {
-        target: false,
-        nativeStyleToProp: { color: 'thumbTintColor' }
-    }
-});
+const CustomizedSlider = withUniwind(RNSlider);
 
 function Slider({
     thumbClassName,

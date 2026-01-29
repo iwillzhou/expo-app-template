@@ -1,6 +1,6 @@
 export * from './button';
 export * from './icon';
-export { ScalableText as Text } from './scalable-text';
+export * from './text';
 export * from './separator';
 export * from './slider';
 export * from './switch';

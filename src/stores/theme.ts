@@ -1,10 +1,13 @@
-import { colorScheme } from 'nativewind';
-import { DEFAULT_COLOR_SCHEME_SETTING } from 'src/constants/theme';
-import { Storage } from 'src/utils/storage';
+import { Uniwind } from 'uniwind';
 import { create } from 'zustand';
+import { Storage } from 'src/utils/storage';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-type ColorSchemeSetting = 'light' | 'dark' | 'system';
+export const enum ColorSchemeSetting {
+    Light = 'light',
+    Dark = 'dark',
+    System = 'system'
+}
 
 interface ThemeState {
     colorSchemeSetting: ColorSchemeSetting;
@@ -18,11 +21,11 @@ const STORAGE_KEY = '@app_theme';
 export const useThemeStore = create<ThemeState>()(
     persist(
         set => ({
-            colorSchemeSetting: DEFAULT_COLOR_SCHEME_SETTING,
+            colorSchemeSetting: ColorSchemeSetting.System,
             loading: true,
             setColorSchemeSetting: (colorSchemeSetting: ColorSchemeSetting) => {
                 set({ colorSchemeSetting });
-                colorScheme.set(colorSchemeSetting);
+                Uniwind.setTheme(colorSchemeSetting);
             },
             setLoading: (loading: boolean) => set({ loading })
         }),
@@ -33,7 +36,7 @@ export const useThemeStore = create<ThemeState>()(
             onRehydrateStorage: () => state => {
                 if (state) {
                     if (state.colorSchemeSetting) {
-                        colorScheme.set(state.colorSchemeSetting);
+                        Uniwind.setTheme(state.colorSchemeSetting);
                     }
                     state.setLoading(false); // 状态恢复后，设置 loading 为 false
                 }

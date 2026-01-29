@@ -45,7 +45,6 @@ export default function FontScaleSetting() {
                 </View>
                 <View className="pt-8 pb-4">
                     <Slider
-                        animateTransitions
                         minimumValue={0}
                         maximumValue={FONT_SCALES.length - 1}
                         step={1}
@@ -55,22 +54,20 @@ export default function FontScaleSetting() {
                             return (
                                 <View className="h-2 border-[0.8px] border-secondary-foreground">
                                     {markValue === min && (
-                                        <Text allowFontScaling={false} className="absolute -left-1 -top-10 text-sm">
+                                        <Text
+                                            allowFontScaling={false}
+                                            className="absolute -left-1 -top-10 text-[0.875rem]"
+                                        >
                                             A
                                         </Text>
                                     )}
                                     {markValue === FONT_SCALES.indexOf(DEFAULT_FONT_SCALE) && (
-                                        <Text
-                                            allowFontScaling={false}
-                                            className="absolute w-20 -left-10 -top-10 text-center"
-                                        >
+                                        <Text className="absolute w-20 -left-10 -top-10 text-center text-[1rem]">
                                             {t('fontScale.default')}
                                         </Text>
                                     )}
                                     {markValue === max && (
-                                        <Text allowFontScaling={false} className="absolute -left-2 -top-10 text-2xl">
-                                            A
-                                        </Text>
+                                        <Text className="absolute -left-2 -top-10 text-[1.5rem]">A</Text>
                                     )}
                                 </View>
                             );
