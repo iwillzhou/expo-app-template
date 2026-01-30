@@ -1,13 +1,9 @@
 {
     "ios": {
         "CFBundleDisplayName": "你好",
-        "NSContactsUsageDescription": "描述描述",
-        "Localizable.strings": {
-            "HELLO_NOTIFICATION_KEY": "你好世界"
-        }
+        "NSContactsUsageDescription": "描述描述"
     },
     "android": {
-        "app_name": "你好",
-        "HELLO_NOTIFICATION_KEY": "你好世界"
+        "app_name": "你好"
     }
 }

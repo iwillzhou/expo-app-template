@@ -32,6 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     locales: getLocales(),
     plugins: [
+        'expo-font',
         'expo-router',
         'expo-secure-store',
         'expo-localization',
