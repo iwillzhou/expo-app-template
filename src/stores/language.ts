@@ -1,4 +1,3 @@
-import i18n from 'src/i18n';
 import { create } from 'zustand';
 import { Storage } from 'src/utils/storage';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -16,12 +15,7 @@ export const useLanguageStore = create<LanguageState>()(
     persist(
         set => ({
             languageSetting: LANG_SETTING_SYSTEM,
-            setLanguageSetting: (languageSetting: string) => {
-                set({ languageSetting });
-                if (languageSetting !== LANG_SETTING_SYSTEM) {
-                    i18n.changeLanguage(languageSetting);
-                }
-            },
+            setLanguageSetting: (languageSetting: string) => set({ languageSetting }),
             loading: true,
             setLoading: (loading: boolean) => set({ loading })
         }),
@@ -32,9 +26,6 @@ export const useLanguageStore = create<LanguageState>()(
             onRehydrateStorage: () => state => {
                 if (state) {
                     state.setLoading(false); // 状态恢复后，设置 loading 为 false
-                    if (state.languageSetting !== LANG_SETTING_SYSTEM) {
-                        i18n.changeLanguage(state.languageSetting);
-                    }
                 }
             }
         }

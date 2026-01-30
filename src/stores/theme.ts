@@ -1,4 +1,3 @@
-import { Uniwind } from 'uniwind';
 import { create } from 'zustand';
 import { Storage } from 'src/utils/storage';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -23,10 +22,7 @@ export const useThemeStore = create<ThemeState>()(
         set => ({
             colorSchemeSetting: ColorSchemeSetting.System,
             loading: true,
-            setColorSchemeSetting: (colorSchemeSetting: ColorSchemeSetting) => {
-                set({ colorSchemeSetting });
-                Uniwind.setTheme(colorSchemeSetting);
-            },
+            setColorSchemeSetting: (colorSchemeSetting: ColorSchemeSetting) => set({ colorSchemeSetting }),
             setLoading: (loading: boolean) => set({ loading })
         }),
         {
@@ -35,9 +31,6 @@ export const useThemeStore = create<ThemeState>()(
             partialize: state => ({ colorSchemeSetting: state.colorSchemeSetting }),
             onRehydrateStorage: () => state => {
                 if (state) {
-                    if (state.colorSchemeSetting) {
-                        Uniwind.setTheme(state.colorSchemeSetting);
-                    }
                     state.setLoading(false); // 状态恢复后，设置 loading 为 false
                 }
             }

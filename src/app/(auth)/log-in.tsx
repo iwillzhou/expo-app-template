@@ -30,7 +30,7 @@ export default function LogIn() {
     );
 
     return (
-        <ScrollView className="flex-grow px-7">
+        <ScrollView className="grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
             </View>
@@ -75,7 +75,7 @@ export default function LogIn() {
             <View className="flex-row items-baseline justify-center mt-4">
                 <Text>{t('signUpPrefix')}</Text>
                 <Link href="/sign-up" asChild replace>
-                    <Button variant="link" className="!px-1">
+                    <Button variant="link" className="px-1!">
                         <Text>{t('signUpLink')}</Text>
                     </Button>
                 </Link>

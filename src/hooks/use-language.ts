@@ -11,9 +11,8 @@ export function useLanguage() {
     const { languageTag: systemLanguage } = systemLocales[0];
 
     useEffect(() => {
-        if (languageSetting === LANG_SETTING_SYSTEM) {
-            i18n.changeLanguage(systemLanguage);
-        }
+        const resolveLanguageSetting = languageSetting === LANG_SETTING_SYSTEM ? systemLanguage : languageSetting;
+        i18n.changeLanguage(resolveLanguageSetting);
     }, [languageSetting, systemLanguage]);
 
     return { loading };

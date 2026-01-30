@@ -1,7 +1,7 @@
+import { create } from 'zustand';
 import Constants from 'expo-constants';
 import * as Updates from 'expo-updates';
 import { Storage } from 'src/utils/storage';
-import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface LaunchInfo {
@@ -36,7 +36,7 @@ export interface LaunchInfo {
     isNormalLaunch: boolean;
 
     /** 启动信息是否仍在计算中 */
-    isLoading: boolean;
+    loading: boolean;
 
     /** 初始化启动信息（仅由 store 内部调用） */
     init: () => void;
@@ -61,7 +61,7 @@ export const useLaunchInfoStore = create<LaunchInfo>()(
             isOTALaunch: false,
             isNormalLaunch: false,
 
-            isLoading: true,
+            loading: true,
 
             /** 计算本次启动状态 */
             init: () => {
@@ -91,7 +91,7 @@ export const useLaunchInfoStore = create<LaunchInfo>()(
                     isUpdatedLaunch,
                     isOTALaunch,
                     isNormalLaunch,
-                    isLoading: false,
+                    loading: false,
 
                     // 更新为本次启动信息（会被 persist）
                     lastVersion: currentVersion,
