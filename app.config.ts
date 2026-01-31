@@ -47,6 +47,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
                     backgroundColor: '#000000'
                 }
             }
+        ],
+        [
+            '@sentry/react-native/expo',
+            {
+                url: 'https://sentry.io/',
+                project: 'react-native'
+            }
         ]
     ],
     experiments: {

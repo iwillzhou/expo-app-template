@@ -1,6 +1,6 @@
 import 'src/global.css';
-
 import 'src/i18n';
+
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -14,12 +14,18 @@ import { useFontScale } from 'src/hooks/use-font-scale';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { useLaunchInfoStore } from 'src/stores/launch-info';
+import * as Sentry from '@sentry/react-native';
 
 export { ErrorBoundary } from 'expo-router';
 
+Sentry.init({
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    sendDefaultPii: true
+});
+
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
     const { loading: isLanguageLoading } = useLanguage();
     const { loading: isFontScaleLoading } = useFontScale();
     const { loading: isAppLaunchInfoLoading } = useLaunchInfoStore();
@@ -28,7 +34,9 @@ export default function RootLayout() {
     const appIsReady = !isLanguageLoading && !isAppLaunchInfoLoading && !isFontScaleLoading && !isThemeLoading;
 
     useEffect(() => {
-        billingService.init();
+        billingService.init().catch(e => {
+            Sentry.captureException(e);
+        });
     }, []);
 
     useEffect(() => {
@@ -53,3 +61,5 @@ export default function RootLayout() {
         </QueryClientProvider>
     );
 }
+
+export default Sentry.wrap(RootLayout);

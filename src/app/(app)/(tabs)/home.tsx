@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { Storage } from 'src/utils/storage';
 import { Button, Text } from 'src/components/ui';
 import { useFontScaleStore } from 'src/stores/font-scale';
+import * as Sentry from '@sentry/react-native';
 
 export default function HomeScreen() {
     const { fontScale } = useFontScaleStore();
@@ -13,6 +14,13 @@ export default function HomeScreen() {
                 <Text>Clear storage</Text>
             </Button>
             <Text>Font Scale: {fontScale}</Text>
+            <Button
+                onPress={() => {
+                    Sentry.captureException(new Error('First error'));
+                }}
+            >
+                <Text>Try! Sentry99</Text>
+            </Button>
         </View>
     );
 }

@@ -7,8 +7,19 @@ export function useLanguage() {
     const systemLocales = useLocales();
     const { i18n } = useTranslation();
     const { loading, languageSetting } = useLanguageStore();
+    const { languageTag, languageCode } = systemLocales[0];
 
-    const { languageTag: systemLanguage } = systemLocales[0];
+    let systemLanguage = languageTag;
+
+    // 针对中文的特殊处理逻辑
+    if (languageCode === 'zh' || languageTag.includes('zh')) {
+        if (languageTag.includes('Hans') || languageTag.includes('CN')) {
+            systemLanguage = 'zh-Hans';
+        }
+        if (languageTag.includes('Hant') || languageTag.includes('TW') || languageTag.includes('HK')) {
+            systemLanguage = 'zh-Hant';
+        }
+    }
 
     useEffect(() => {
         const resolveLanguageSetting = languageSetting === LANG_SETTING_SYSTEM ? systemLanguage : languageSetting;

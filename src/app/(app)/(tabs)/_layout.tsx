@@ -1,6 +1,6 @@
 import { Link, Tabs } from 'expo-router';
-import { Settings } from 'lucide-react-native';
 import { Button, Icon } from 'src/components/ui';
+import { House, Settings, UserRound } from 'lucide-react-native';
 
 export default function TabsLayout() {
     return (
@@ -17,8 +17,20 @@ export default function TabsLayout() {
                 )
             }}
         >
-            <Tabs.Screen name="home" options={{ title: 'home' }} />
-            <Tabs.Screen name="profile" options={{ title: 'profile' }} />
+            <Tabs.Screen
+                name="home"
+                options={{
+                    title: 'home',
+                    tabBarIcon: ({ color }) => <House color={color} />
+                }}
+            />
+            <Tabs.Screen
+                name="profile"
+                options={{
+                    title: 'profile',
+                    tabBarIcon: ({ color }) => <UserRound color={color} />
+                }}
+            />
         </Tabs>
     );
 }
