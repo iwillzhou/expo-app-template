@@ -20,6 +20,12 @@ on:
     secrets:
       EXPO_TOKEN:
         description: 'An API acesss token for Expo'
+      EXPO_PUBLIC_SUPABASE_KEY:
+        description: 'An API acesss token for Supabase'
+      SENTRY_AUTH_TOKEN:
+        description: 'An API acesss token for Sentry'
+      EXPO_PUBLIC_REVENUECAT_API_KEY:
+        description: 'An API acesss token for RevenueCat'
 
 jobs:
   android-apk-build:

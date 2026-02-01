@@ -6,7 +6,9 @@
     "build": {
         "base": {
             "env": {
-                "GRADLE_OPTS": "-Dorg.gradle.jvmargs='-Xmx14g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8' -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false"
+                "GRADLE_OPTS": "-Dorg.gradle.jvmargs='-Xmx14g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8' -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false",
+                "EXPO_PUBLIC_SUPABASE_URL": "https://llfpofsbxcwxzvlxwovh.supabase.co",
+                "EXPO_PUBLIC_SENTRY_DSN": "https://cc7eb751e7ee5d87fc6957085dedee88@o4510800023060480.ingest.us.sentry.io/4510800029941760"
             },
             "android": {
                 "buildType": "apk"
