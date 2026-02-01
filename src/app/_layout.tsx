@@ -6,16 +6,17 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { initSentry } from 'src/utils/sentry';
 import { useTheme } from 'src/hooks/use-theme';
+import * as Sentry from '@sentry/react-native';
 import { AuthProvider } from 'src/hooks/use-auth';
 import { PortalHost } from '@rn-primitives/portal';
 import * as SplashScreen from 'expo-splash-screen';
 import { useLanguage } from 'src/hooks/use-language';
 import { queryClient, billingService } from 'src/api';
+import { PostHogProvider } from 'posthog-react-native';
 import { useFontScale } from 'src/hooks/use-font-scale';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { useLaunchInfoStore } from 'src/stores/launch-info';
-import * as Sentry from '@sentry/react-native';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -47,15 +48,22 @@ function RootLayout() {
     }
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <ThemeProvider value={navTheme}>
-                <AuthProvider>
-                    <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-                    <Stack screenOptions={{ headerShown: false }} />
-                    <PortalHost />
-                </AuthProvider>
-            </ThemeProvider>
-        </QueryClientProvider>
+        <PostHogProvider
+            apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
+            options={{
+                host: 'https://us.i.posthog.com'
+            }}
+        >
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider value={navTheme}>
+                    <AuthProvider>
+                        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+                        <Stack screenOptions={{ headerShown: false }} />
+                        <PortalHost />
+                    </AuthProvider>
+                </ThemeProvider>
+            </QueryClientProvider>
+        </PostHogProvider>
     );
 }
 

@@ -1,6 +1,6 @@
-import * as Sentry from '@sentry/react-native';
 import Constants from 'expo-constants';
 import * as Updates from 'expo-updates';
+import * as Sentry from '@sentry/react-native';
 
 export function initSentry() {
     Sentry.init({
