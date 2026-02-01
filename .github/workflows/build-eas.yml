@@ -35,6 +35,9 @@ jobs:
     env:
       HOSTNAME: ${{ inputs.hostname }}
       APP_ENV: ${{ inputs.app-env }}
+      EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      EXPO_PUBLIC_REVENUECAT_API_KEY: ${{ secrets.EXPO_PUBLIC_REVENUECAT_API_KEY }}
 
     steps:
       - name: Checkout repo
@@ -85,6 +88,9 @@ jobs:
     env:
       HOSTNAME: ${{ inputs.hostname }}
       APP_ENV: ${{ inputs.app-env }}
+      EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      EXPO_PUBLIC_REVENUECAT_API_KEY: ${{ secrets.EXPO_PUBLIC_REVENUECAT_API_KEY }}
 
     steps:
       - name: Checkout repo
@@ -135,6 +141,9 @@ jobs:
     env:
       HOSTNAME: ${{ inputs.hostname }}
       APP_ENV: ${{ inputs.app-env }}
+      EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      EXPO_PUBLIC_REVENUECAT_API_KEY: ${{ secrets.EXPO_PUBLIC_REVENUECAT_API_KEY }}
 
     steps:
       - name: Checkout repo
