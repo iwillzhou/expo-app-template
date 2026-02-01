@@ -53,8 +53,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             {
                 url: 'https://sentry.io/',
                 project: 'react-native',
-                organization: "wenyuan-zhou",
-                authToken: process.env.SENTRY_AUTH_TOKEN
+                organization: "wenyuan-zhou"
             }
         ]
     ],
