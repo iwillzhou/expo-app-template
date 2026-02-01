@@ -59,7 +59,7 @@ export default function ForgotPasswordOTP() {
                     <Text>{t('resendOtpBtnPrefix')}</Text>
                     <Button
                         variant="link"
-                        className="!px-1"
+                        className="px-1!"
                         disabled={resendResetPasswordEmailOtpMutation.isPending}
                         onPress={onResend}
                     >

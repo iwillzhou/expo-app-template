@@ -52,7 +52,7 @@ export default function SignUpOTP() {
                 </Button>
                 <View className="flex-row items-baseline justify-center w-full">
                     <Text>{t('resendOtpBtnPrefix')}</Text>
-                    <Button variant="link" className="!px-1" onPress={onResend}>
+                    <Button variant="link" className="px-1!" onPress={onResend}>
                         <Text>{t('resendOtpBtn')}</Text>
                     </Button>
                 </View>

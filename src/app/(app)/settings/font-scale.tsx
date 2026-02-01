@@ -38,8 +38,10 @@ export default function FontScaleSetting() {
             <View className="bg-secondary rounded-xl p-4 gap-4">
                 <View className="flex-row justify-between items-center">
                     <View className="shrink">
-                        <Text>{t('fontScale.system')}</Text>
-                        <Text className="text-muted-foreground text-sm">{t('fontScale.systemDesc')}</Text>
+                        <Text className="text-[1rem]">{t('fontScale.system')}</Text>
+                        <Text className="text-muted-foreground text-[0.875rem] mt-0.5">
+                            {t('fontScale.systemDesc')}
+                        </Text>
                     </View>
                     <Switch checked={followSystem} onCheckedChange={handleSystemToggle} />
                 </View>
@@ -56,13 +58,13 @@ export default function FontScaleSetting() {
                                     {markValue === min && (
                                         <Text
                                             allowFontScaling={false}
-                                            className="absolute -left-1 -top-10 text-[0.875rem]"
+                                            className="absolute -left-1 -top-7 text-[0.875rem] "
                                         >
                                             A
                                         </Text>
                                     )}
                                     {markValue === FONT_SCALES.indexOf(DEFAULT_FONT_SCALE) && (
-                                        <Text className="absolute w-20 -left-10 -top-10 text-center text-[1rem]">
+                                        <Text className="absolute w-20 -left-10 -top-8 text-center text-[1rem]">
                                             {t('fontScale.default')}
                                         </Text>
                                     )}

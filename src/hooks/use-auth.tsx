@@ -1,4 +1,5 @@
 import { Redirect, Slot } from 'expo-router';
+import * as Sentry from '@sentry/react-native';
 import { billingService, supabase } from 'src/api';
 import type { Session } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react';
@@ -50,6 +51,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
                 const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
                 setProfile(data);
                 billingService.logIn(userId);
+                Sentry.setUser({ id: userId });
             } else {
                 setProfile(null);
             }

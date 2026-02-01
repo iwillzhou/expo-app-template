@@ -1,7 +1,8 @@
 import * as burnt from 'burnt';
 import { router } from 'expo-router';
-import { authService, supabase } from 'src/api';
+import * as Sentry from '@sentry/react-native';
 import { useTranslation } from 'react-i18next';
+import { authService, billingService, supabase } from 'src/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const useUser = () => useQuery({ queryKey: ['user'], queryFn: authService.getUser });
@@ -146,6 +147,8 @@ export function useSignOut() {
         onSuccess() {
             queryClient.setQueryData(['user'], null);
             queryClient.removeQueries();
+            billingService.logOut();
+            Sentry.setUser(null);
             router.push('/');
         },
         onError: error => {

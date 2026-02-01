@@ -73,7 +73,7 @@ export default function SignUp() {
             <View className="flex-row items-baseline justify-center w-full mt-4">
                 <Text>{t('signInPrefix')}</Text>
                 <Link href="/log-in" asChild replace>
-                    <Button variant="link" className="!px-1">
+                    <Button variant="link" className="px-1!">
                         <Text>{t('signInLink')}</Text>
                     </Button>
                 </Link>

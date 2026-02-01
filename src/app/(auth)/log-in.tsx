@@ -60,7 +60,7 @@ export default function LogIn() {
                             />
                             <View className="flex flex-row-reverse">
                                 <Link href="/forgot-password" asChild>
-                                    <Button variant="link" className="!px-0">
+                                    <Button variant="link" className="px-0!">
                                         <Text>{t('forgotPassword')}</Text>
                                     </Button>
                                 </Link>

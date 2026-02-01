@@ -4,6 +4,7 @@ import 'src/i18n';
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { initSentry } from 'src/utils/sentry';
 import { useTheme } from 'src/hooks/use-theme';
 import { AuthProvider } from 'src/hooks/use-auth';
 import { PortalHost } from '@rn-primitives/portal';
@@ -18,11 +19,7 @@ import * as Sentry from '@sentry/react-native';
 
 export { ErrorBoundary } from 'expo-router';
 
-Sentry.init({
-    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-    sendDefaultPii: true
-});
-
+initSentry();
 SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {

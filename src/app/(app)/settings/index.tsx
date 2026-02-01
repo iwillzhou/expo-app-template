@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { billingService } from 'src/api';
 import { useTranslation } from 'react-i18next';
 import { Href, Link, Stack } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
@@ -76,7 +75,6 @@ export default function Settings() {
                     text: '退出登录',
                     onPress: () => {
                         signOutMutation.mutate();
-                        billingService.logOut();
                     },
                     style: 'destructive'
                 }
@@ -95,7 +93,7 @@ export default function Settings() {
                             <Fragment key={item.key}>
                                 {index !== 0 && <Separator className="mx-4 my-0 w-auto" />}
                                 <Link href={item.href} asChild>
-                                    <Button variant="secondary" className="flex-row justify-between h-auto min-h-14">
+                                    <Button variant="ghost" className="flex-row justify-between h-auto min-h-14">
                                         <Text className="font-normal leading-normal">{item.title}</Text>
                                         <Icon as={ChevronRight} />
                                     </Button>
@@ -104,7 +102,7 @@ export default function Settings() {
                         ))}
                     </View>
                 ))}
-                <Button variant="destructive" className="h-auto" onPress={onLogout}>
+                <Button variant="destructive" className="h-auto min-h-10" onPress={onLogout}>
                     <Text className="leading-normal">{t('index.logout')}</Text>
                 </Button>
             </View>

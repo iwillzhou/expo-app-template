@@ -1,3 +1,4 @@
+import * as burnt from 'burnt';
 import Purchases, { PACKAGE_TYPE } from 'react-native-purchases';
 
 export { PACKAGE_TYPE };
@@ -145,11 +146,11 @@ export class MockBillingAdapter implements IBillingService {
     }
 
     async purchase(productId: string) {
-        console.log('[Billing] Mock purchase: ', productId);
+        burnt.toast({ title: `[Billing] Mock purchase: ${productId}` });
     }
 
     async restorePurchases() {
-        console.log('[Billing] Mock restorePurchases');
+        burnt.toast({ title: '[Billing] Mock restorePurchases' });
     }
 }
 /**

@@ -1,12 +1,12 @@
 import { cn } from 'src/utils/cn';
-import { Link } from 'expo-router';
 import { withUniwind } from 'uniwind';
 import { useEffect, useState } from 'react';
-import { Crown, Check, X } from 'lucide-react-native';
+import { Crown, Check, ChevronLeft } from 'lucide-react-native';
 import { View, Pressable, ScrollView } from 'react-native';
 import { Text, Card, Icon, Button } from 'src/components/ui';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useOfferings, usePurchase, useRestorePurchase } from 'src/hooks/queries/billing';
+import { Stack, useRouter } from 'expo-router';
 
 const StyledSafeAreaView = withUniwind(SafeAreaView);
 
@@ -26,6 +26,7 @@ function FeatureItem({ title, description }: { title: string; description: strin
 }
 
 export default function PaywallScreen() {
+    const router = useRouter();
     const [selectedPlan, setSelectedPlan] = useState<string | undefined>();
 
     const { data: productList } = useOfferings();
@@ -52,11 +53,20 @@ export default function PaywallScreen() {
 
     return (
         <StyledSafeAreaView className="flex-1 bg-muted px-5">
-            <Link href="../" asChild>
-                <Button variant="ghost" size="icon" className="rounded-full absolute top-2 right-2 z-10">
-                    <Icon as={X} />
-                </Button>
-            </Link>
+            <Stack.Screen
+                options={{
+                    headerShown: true,
+                    headerLeft: ({ canGoBack }) =>
+                        canGoBack && (
+                            <Button variant="ghost" size="icon" onPress={() => router.back()} className="rounded-full">
+                                <ChevronLeft className="text-foreground" />
+                            </Button>
+                        ),
+                    headerShadowVisible: false,
+                    headerTransparent: true,
+                    headerTitle: ''
+                }}
+            />
             <ScrollView className="flex-1 pt-10 bg-muted" showsVerticalScrollIndicator={false}>
                 <View className="items-center mb-8">
                     <Icon as={Crown} size={48} color="#111827" className="mb-3" />
@@ -102,7 +112,6 @@ export default function PaywallScreen() {
                 </ScrollView>
                 <View className="mb-10">
                     <Text className="text-center text-sm text-gray-500 mb-4">Unlock Premium Features</Text>
-
                     <Card className="p-5 space-y-5">
                         <FeatureItem title="Unlimited Tasks" description="Create unlimited tasks" />
                         <FeatureItem title="Sync Reminders" description="Sync with system reminders" />
