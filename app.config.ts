@@ -52,7 +52,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             '@sentry/react-native/expo',
             {
                 url: 'https://sentry.io/',
-                project: 'react-native'
+                project: 'react-native',
+                organization: "wenyuan-zhou"
             }
         ]
     ],
