@@ -19,12 +19,12 @@ export type PurchaserInfo = {
 
 export interface IBillingService {
     init(): Promise<void>;
+    logIn(appUserID: string): Promise<void>;
+    logOut(): Promise<void>;
+    getCustomerInfo(): Promise<PurchaserInfo>;
     getOfferings(): Promise<PurchasePackage[]>;
     purchase(packageId: string): Promise<void>;
     restorePurchases(): Promise<void>;
-    getCustomerInfo(): Promise<PurchaserInfo>;
-    logIn(appUserID: string): Promise<void>;
-    logOut(): Promise<void>;
 }
 
 class RevenueCatAdapter implements IBillingService {
@@ -53,7 +53,7 @@ class RevenueCatAdapter implements IBillingService {
         };
     }
 
-    async getOfferings(): Promise<PurchasePackage[]> {
+    async getOfferings() {
         const offerings = await Purchases.getOfferings();
         if (!offerings.current) return [];
         return offerings.current.availablePackages.map(p => ({
@@ -76,29 +76,7 @@ class RevenueCatAdapter implements IBillingService {
     }
 }
 
-// class StripeAdapter implements IBillingService {
-//     async init() {}
-
-//     async logIn(appUserID: string) {}
-
-//     async logOut() {}
-
-//     async getCustomerInfo() {
-//         return {
-//             entitlements: {}
-//         };
-//     }
-
-//     async getOfferings(): Promise<PurchasePackage[]> {
-//         return [];
-//     }
-
-//     async purchase(packageId: string) {}
-
-//     async restorePurchases() {}
-// }
-
-// class AlipayAdapter implements IBillingService {
+// class CnAndroidAdapter implements IBillingService {
 //     async init() {}
 
 //     async logIn(appUserID: string) {}
@@ -135,26 +113,62 @@ class RevenueCatAdapter implements IBillingService {
 //     async restorePurchases() {}
 // }
 
-// class WechatAdapter implements IBillingService {
-//     async init() {}
+export class MockBillingAdapter implements IBillingService {
+    async init() {
+        console.log('[Billing] Mock init');
+    }
 
-//     async logIn(appUserID: string) {}
+    async logIn(appUserID: string) {
+        console.log('[Billing] Mock logIn:', appUserID);
+    }
 
-//     async logOut() {}
+    async logOut() {
+        console.log('[Billing] Mock logOut');
+    }
 
-//     async getCustomerInfo() {
-//         return {
-//             entitlements: {}
-//         };
-//     }
+    async getCustomerInfo() {
+        const info = await Purchases.getCustomerInfo();
+        return {
+            entitlements: {
+                [ENTITLEMENT.PRO]: true
+            }
+        };
+    }
 
-//     async getOfferings(): Promise<PurchasePackage[]> {
-//         return [];
-//     }
+    async getOfferings() {
+        return [
+            { id: '$rc_monthly', packageType: PACKAGE_TYPE.MONTHLY, price: 'US$9.99', title: 'Monthly' },
+            { id: '$rc_annual', packageType: PACKAGE_TYPE.ANNUAL, price: 'US$79.99', title: 'Yearly' },
+            { id: '$rc_lifetime', packageType: PACKAGE_TYPE.LIFETIME, price: 'US$99.99', title: 'Lifetime' },
+            { id: '$rc_weekly', packageType: PACKAGE_TYPE.WEEKLY, price: 'US$3.99', title: 'Weekly' }
+        ];
+    }
 
-//     async purchase(packageId: string) {}
+    async purchase(productId: string) {
+        console.log('[Billing] Mock purchase: ', productId);
+    }
 
-//     async restorePurchases() {}
-// }
+    async restorePurchases() {
+        console.log('[Billing] Mock restorePurchases');
+    }
+}
+/**
+ *
+ * RevenueCat Teststore 只能在开发环境下使用，生产环境中只能先走 mock, 等 Real store 配置后再切回
+ *
+ * @returns IBillingService
+ */
 
-export const billingService = new RevenueCatAdapter();
+export function createBillingService(): IBillingService {
+    if (__DEV__) {
+        return new RevenueCatAdapter();
+    }
+
+    // if (isChinaBuild) {
+    //     return new CnAndroidAdapter();
+    // }
+
+    return new MockBillingAdapter();
+}
+
+export const billingService = createBillingService();
