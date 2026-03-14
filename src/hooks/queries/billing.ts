@@ -1,11 +1,19 @@
 import { billingService } from 'src/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-export const useOfferings = () =>
-    useQuery({ queryKey: ['billing', 'offerings'], queryFn: billingService.getOfferings });
+export function useOfferings() {
+    return useQuery({
+        queryKey: ['billing', 'offerings'],
+        queryFn: billingService.getOfferings
+    });
+}
 
-export const useCustomerInfo = () =>
-    useQuery({ queryKey: ['billing', 'customerInfo'], queryFn: billingService.getCustomerInfo });
+export function useCustomerInfo() {
+    return useQuery({
+        queryKey: ['billing', 'customerInfo'],
+        queryFn: billingService.getCustomerInfo
+    });
+}
 
 export function usePurchase() {
     return useMutation({

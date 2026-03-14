@@ -1,22 +1,11 @@
-import { Redirect, Slot } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { useAuthStore } from 'src/stores/auth';
 import * as Sentry from '@sentry/react-native';
-import { billingService, supabase } from 'src/api';
-import type { Session } from '@supabase/supabase-js';
-import { createContext, useContext, useEffect, useState, PropsWithChildren } from 'react';
+import { billingService, queryClient, supabase } from 'src/api';
 
-type AuthContextType = {
-    session: Session | null;
-    profile?: any;
-    isAuthenticated: boolean;
-    loading: boolean;
-};
-
-const AuthContext = createContext<AuthContextType>(null!);
-
-export function AuthProvider({ children }: PropsWithChildren) {
-    const [session, setSession] = useState<Session | null>(null);
-    const [profile, setProfile] = useState<any>();
-    const [loading, setLoading] = useState<boolean>(true);
+export const useAuth = () => {
+    const [loading, setLoading] = useState(true);
+    const { setUserId, clearAuth } = useAuthStore();
 
     useEffect(() => {
         // 1. 启动时获取 session（同步入口）
@@ -25,7 +14,12 @@ export function AuthProvider({ children }: PropsWithChildren) {
             const {
                 data: { session }
             } = await supabase.auth.getSession();
-            setSession(session);
+            if (session) {
+                const userId = session.user.id;
+                setUserId(userId);
+                billingService.logIn(userId);
+                Sentry.setUser({ id: userId });
+            }
             setLoading(false);
         };
 
@@ -35,7 +29,14 @@ export function AuthProvider({ children }: PropsWithChildren) {
         const {
             data: { subscription }
         } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
+            if (session?.user) {
+                setUserId(session.user.id);
+            } else if (_event === 'SIGNED_OUT') {
+                // 彻底登出：清空 Zustand 和本地持久化
+                clearAuth();
+                billingService.logOut();
+                Sentry.setUser(null);
+            }
         });
 
         return () => {
@@ -43,47 +44,5 @@ export function AuthProvider({ children }: PropsWithChildren) {
         };
     }, []);
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-            setLoading(true);
-            if (session) {
-                const userId = session.user.id;
-                const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
-                setProfile(data);
-                billingService.logIn(userId);
-                Sentry.setUser({ id: userId });
-            } else {
-                setProfile(null);
-            }
-            setLoading(false);
-        };
-        fetchProfile();
-    }, [session]);
-
-    return (
-        <AuthContext.Provider
-            value={{
-                session,
-                profile,
-                isAuthenticated: !!session,
-                loading
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
-    );
-}
-
-export function ProtectedLayout() {
-    const { isAuthenticated, loading } = useAuth();
-
-    if (loading) return null;
-
-    if (!isAuthenticated) {
-        return <Redirect href="/" />;
-    }
-
-    return <Slot />;
-}
-
-export const useAuth = () => useContext(AuthContext);
+    return { loading };
+};

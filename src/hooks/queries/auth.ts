@@ -1,11 +1,42 @@
 import * as burnt from 'burnt';
 import { router } from 'expo-router';
-import * as Sentry from '@sentry/react-native';
 import { useTranslation } from 'react-i18next';
-import { authService, billingService, supabase } from 'src/api';
+import { useAuthStore } from 'src/stores/auth';
+import { authService, supabase } from 'src/api';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useUser = () => useQuery({ queryKey: ['user'], queryFn: authService.getUser });
+export function useSession() {
+    return useQuery({
+        queryKey: ['auth', 'session'],
+        queryFn: authService.getSession,
+        staleTime: 0,
+        gcTime: 0
+    });
+}
+
+export function useUser() {
+    return useQuery({
+        queryKey: ['auth', 'user'],
+        queryFn: authService.getUser
+    });
+}
+
+export function useProfile() {
+    const { userId, profile, setProfile } = useAuthStore();
+
+    return useQuery({
+        queryKey: ['auth', 'profile', userId],
+        queryFn: async () => {
+            const profile = await authService.getProfile(userId!);
+            setProfile(profile);
+            return profile;
+        },
+        enabled: !!userId,
+        initialData: profile || undefined,
+        // 即使有初始值，也要在后台刷一次最新的
+        refetchOnMount: true
+    });
+}
 
 export function useLogInWithPassword() {
     const queryClient = useQueryClient();
@@ -147,8 +178,6 @@ export function useSignOut() {
         onSuccess() {
             queryClient.setQueryData(['user'], null);
             queryClient.removeQueries();
-            billingService.logOut();
-            Sentry.setUser(null);
             router.push('/');
         },
         onError: error => {

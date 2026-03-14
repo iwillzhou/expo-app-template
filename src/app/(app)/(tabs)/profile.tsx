@@ -1,12 +1,13 @@
 import { Link } from 'expo-router';
 import { View } from 'react-native';
-import { useAuth } from 'src/hooks/use-auth';
-import { ChevronRight, UserRound } from 'lucide-react-native';
+import { useProfile } from 'src/hooks/queries/auth';
 import { PremiumCard } from 'src/components/premium-card';
+import { ChevronRight, UserRound } from 'lucide-react-native';
 import { Text, Avatar, AvatarFallback, AvatarImage, Card, Button } from 'src/components/ui';
 
 export default function ProfileScreen() {
-    const { profile, isAuthenticated } = useAuth();
+    const { data: profile } = useProfile();
+
     return (
         <View className="grid grid-flow-col p-4 gap-4">
             <Card className="flex-row items-center justify-between p-4 rounded-2xl bg-secondary">
@@ -17,10 +18,10 @@ export default function ProfileScreen() {
                             <UserRound />
                         </AvatarFallback>
                     </Avatar>
-                    {isAuthenticated ? (
+                    {profile ? (
                         <View className="ml-4">
-                            <Text className="text-foreground font-semibold">{profile?.username ?? '-'}</Text>
-                            <Text className="text-secondary-foreground text-xs mt-0.5">ID: {profile?.id}</Text>
+                            <Text className="text-foreground font-semibold">{profile.username ?? '-'}</Text>
+                            <Text className="text-secondary-foreground text-xs mt-0.5">ID: {profile.id}</Text>
                         </View>
                     ) : (
                         <Link href="/log-in" asChild>

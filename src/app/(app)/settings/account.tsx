@@ -27,7 +27,7 @@ export default function AccountSetting() {
                     <Icon as={ChevronRight} />
                 </Button>
             </View>
-            <Button variant="destructive" className="h-auto min-h-10">
+            <Button variant="destructive">
                 <Text className="leading-normal">注销账号</Text>
             </Button>
         </View>

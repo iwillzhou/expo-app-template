@@ -1,13 +1,13 @@
 import 'src/global.css';
 import 'src/i18n';
 
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useAuth } from 'src/hooks/use-auth';
 import { initSentry } from 'src/utils/sentry';
 import { useTheme } from 'src/hooks/use-theme';
 import * as Sentry from '@sentry/react-native';
-import { AuthProvider } from 'src/hooks/use-auth';
 import { PortalHost } from '@rn-primitives/portal';
 import * as SplashScreen from 'expo-splash-screen';
 import { useLanguage } from 'src/hooks/use-language';
@@ -24,12 +24,14 @@ initSentry();
 SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
+    const { loading: isAuthLoading } = useAuth();
     const { loading: isLanguageLoading } = useLanguage();
     const { loading: isFontScaleLoading } = useFontScale();
     const { loading: isAppLaunchInfoLoading } = useLaunchInfoStore();
     const { loading: isThemeLoading, colorScheme, navTheme } = useTheme();
 
-    const appIsReady = !isLanguageLoading && !isAppLaunchInfoLoading && !isFontScaleLoading && !isThemeLoading;
+    const appIsReady =
+        !isLanguageLoading && !isAppLaunchInfoLoading && !isFontScaleLoading && !isThemeLoading && !isAuthLoading;
 
     useEffect(() => {
         billingService.init().catch(e => {
@@ -56,11 +58,9 @@ function RootLayout() {
         >
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider value={navTheme}>
-                    <AuthProvider>
-                        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-                        <Stack screenOptions={{ headerShown: false }} />
-                        <PortalHost />
-                    </AuthProvider>
+                    <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+                    <Stack screenOptions={{ headerShown: false }} />
+                    <PortalHost />
                 </ThemeProvider>
             </QueryClientProvider>
         </PostHogProvider>

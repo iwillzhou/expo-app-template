@@ -43,6 +43,8 @@ export default function LogIn() {
                             className="native:h-16"
                             autoCapitalize={'none'}
                             placeholder={t('emailPlaceholder')}
+                            textContentType="emailAddress" // iOS: 告诉系统这是用户名
+                            autoComplete="email" // Android: 告诉系统这是邮箱/账号
                             value={value}
                             onChangeText={onChange}
                         />
@@ -57,6 +59,8 @@ export default function LogIn() {
                                 value={value}
                                 onChangeText={onChange}
                                 placeholder={t('passwordPlaceholder')}
+                                textContentType="password" // iOS: 触发钥匙串
+                                autoComplete="password" // Android: 触发密码管理器
                             />
                             <View className="flex flex-row-reverse">
                                 <Link href="/forgot-password" asChild>
