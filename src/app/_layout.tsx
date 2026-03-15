@@ -1,7 +1,7 @@
 import 'src/global.css';
 import 'src/i18n';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAuth } from 'src/hooks/use-auth';
@@ -17,6 +17,7 @@ import { useFontScale } from 'src/hooks/use-font-scale';
 import { ThemeProvider } from '@react-navigation/native';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { useLaunchInfoStore } from 'src/stores/launch-info';
+import { usePostHogScreenTracking } from 'src/hooks/use-posthog';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -52,19 +53,23 @@ function RootLayout() {
     return (
         <PostHogProvider
             apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
-            options={{
-                host: 'https://us.i.posthog.com'
-            }}
+            options={{ host: 'https://us.i.posthog.com' }}
+            autocapture={{ captureScreens: false, captureTouches: true }}
         >
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider value={navTheme}>
                     <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-                    <Stack screenOptions={{ headerShown: false }} />
+                    <AppRoute />
                     <PortalHost />
                 </ThemeProvider>
             </QueryClientProvider>
         </PostHogProvider>
     );
+}
+
+function AppRoute() {
+    usePostHogScreenTracking();
+    return <Stack screenOptions={{ headerShown: false }} />;
 }
 
 export default Sentry.wrap(RootLayout);
