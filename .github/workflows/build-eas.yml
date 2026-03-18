@@ -26,6 +26,8 @@ on:
         description: 'An API acesss token for Sentry'
       EXPO_PUBLIC_REVENUECAT_API_KEY:
         description: 'An API acesss token for RevenueCat'
+      EXPO_PUBLIC_POSTHOG_API_KEY:
+        description: 'An API acesss token for PostHog'
 
 jobs:
   android-apk-build:
@@ -38,6 +40,7 @@ jobs:
       EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       EXPO_PUBLIC_REVENUECAT_API_KEY: ${{ secrets.EXPO_PUBLIC_REVENUECAT_API_KEY }}
+      EXPO_PUBLIC_POSTHOG_API_KEY: ${{ secrets.EXPO_PUBLIC_POSTHOG_API_KEY }}
 
     steps:
       - name: Checkout repo
@@ -91,6 +94,7 @@ jobs:
       EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       EXPO_PUBLIC_REVENUECAT_API_KEY: ${{ secrets.EXPO_PUBLIC_REVENUECAT_API_KEY }}
+      EXPO_PUBLIC_POSTHOG_API_KEY: ${{ secrets.EXPO_PUBLIC_POSTHOG_API_KEY }}
 
     steps:
       - name: Checkout repo
@@ -144,6 +148,7 @@ jobs:
       EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       EXPO_PUBLIC_REVENUECAT_API_KEY: ${{ secrets.EXPO_PUBLIC_REVENUECAT_API_KEY }}
+      EXPO_PUBLIC_POSTHOG_API_KEY: ${{ secrets.EXPO_PUBLIC_POSTHOG_API_KEY }}
 
     steps:
       - name: Checkout repo
