@@ -34,6 +34,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         'expo-router',
         'expo-secure-store',
         'expo-localization',
+        'expo-sqlite',
         [
             'expo-splash-screen',
             {
@@ -51,7 +52,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
             {
                 url: 'https://sentry.io/',
                 project: 'react-native',
-                organization: "wenyuan-zhou"
+                organization: 'wenyuan-zhou'
             }
         ]
     ],

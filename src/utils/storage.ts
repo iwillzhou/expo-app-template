@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import 'expo-sqlite/localStorage/install';
 
 interface IStorage {
     getItem(key: string): Promise<string | null>;
@@ -7,19 +7,19 @@ interface IStorage {
     clear(): Promise<void>;
 }
 
-class AsyncStorageAdapter implements IStorage {
+class LocalStorageAdapter implements IStorage {
     async getItem(key: string) {
         try {
-            return await AsyncStorage.getItem(key);
+            return globalThis.localStorage!.getItem(key);
         } catch (error) {
-            console.error('Failed to get item from AsyncStorage:', error);
+            console.error('Failed to get item from storage:', error);
             return null;
         }
     }
 
     async setItem(key: string, value: string) {
         try {
-            return await AsyncStorage.setItem(key, value);
+            globalThis.localStorage!.setItem(key, value);
         } catch (error) {
             console.error('Failed to set item:', error);
         }
@@ -27,7 +27,7 @@ class AsyncStorageAdapter implements IStorage {
 
     async removeItem(key: string) {
         try {
-            return await AsyncStorage.removeItem(key);
+            globalThis.localStorage!.removeItem(key);
         } catch (error) {
             console.error('Failed to remove item:', error);
         }
@@ -35,11 +35,11 @@ class AsyncStorageAdapter implements IStorage {
 
     async clear() {
         try {
-            return await AsyncStorage.clear();
+            globalThis.localStorage!.clear();
         } catch (error) {
             console.error('Failed to clear all items:', error);
         }
     }
 }
 
-export const Storage = new AsyncStorageAdapter();
+export const Storage = new LocalStorageAdapter();
