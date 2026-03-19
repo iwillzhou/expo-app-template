@@ -34,7 +34,7 @@ export default function SignUpOTP() {
     };
 
     return (
-        <View className="flex-grow px-7">
+        <View className="grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
                 <Text className="text-xl mt-6">{t('desc')}</Text>

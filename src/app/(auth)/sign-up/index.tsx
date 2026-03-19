@@ -28,7 +28,7 @@ export default function SignUp() {
     );
 
     return (
-        <ScrollView className="flex-grow px-7">
+        <ScrollView className="grow px-7">
             <View className="my-16">
                 <Text className="text-3xl font-bold">{t('title')}</Text>
             </View>

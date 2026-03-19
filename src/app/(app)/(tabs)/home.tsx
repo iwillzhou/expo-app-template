@@ -8,7 +8,7 @@ export default function HomeScreen() {
     const { fontScale } = useFontScaleStore();
 
     return (
-        <View className="flex-1 items-center justify-center bg-background gap-4">
+        <View className="flex-1 items-center justify-center gap-4">
             <Text>Home</Text>
             <Button onPress={() => Storage.clear()}>
                 <Text>Clear storage</Text>

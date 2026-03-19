@@ -1,15 +1,24 @@
 import { Link } from 'expo-router';
 import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useProfile } from 'src/hooks/queries/auth';
 import { PremiumCard } from 'src/components/premium-card';
-import { ChevronRight, UserRound } from 'lucide-react-native';
-import { Text, Avatar, AvatarFallback, AvatarImage, Card, Button } from 'src/components/ui';
+import { ChevronRight, Settings, UserRound } from 'lucide-react-native';
+import { Text, Avatar, AvatarFallback, AvatarImage, Card, Button, Icon } from 'src/components/ui';
 
 export default function ProfileScreen() {
     const { data: profile } = useProfile();
+    const insets = useSafeAreaInsets();
 
     return (
-        <View className="grid grid-flow-col p-4 gap-4">
+        <View className="grid grid-flow-col p-4 gap-4" style={{ paddingTop: insets.top }}>
+            <View className="flex-row justify-end items-center h-12 px-2">
+                <Link href="/settings" asChild>
+                    <Button variant="ghost" size="icon" className="rounded-full">
+                        <Icon as={Settings} size={24} />
+                    </Button>
+                </Link>
+            </View>
             <Card className="flex-row items-center justify-between p-4 rounded-2xl bg-secondary">
                 <View className="flex-row items-center space-x-3">
                     <Avatar alt="@mrzachnugent" className="border-background border-2 size-14">
