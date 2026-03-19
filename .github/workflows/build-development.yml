@@ -1,0 +1,15 @@
+name: Build for Development
+
+on:
+    push:
+        branches:
+            - feature/*
+
+jobs:
+    build:
+        uses: ./.github/workflows/build-eas.yml
+        with:
+            app-env: development
+            build-type: apk,ipa
+            hostname: ${{ vars.HOSTNAME }}
+        secrets: inherit
