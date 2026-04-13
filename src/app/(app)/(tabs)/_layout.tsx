@@ -1,27 +1,52 @@
-import { useTheme } from '@react-navigation/native';
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
+import { Platform } from 'react-native';
+import { NativeTabsLayout, JsTabsLayout } from 'src/components/tabs-layout';
+
+const tabs = [
+    {
+        name: 'home',
+        title: 'Home',
+        icon: {
+            ios: {
+                sf: {
+                    default: 'house',
+                    selected: 'house.fill'
+                }
+            },
+            android: 'home'
+        }
+    },
+    {
+        name: 'settings',
+        title: 'Settings',
+        icon: {
+            ios: {
+                sf: {
+                    default: 'gear',
+                    selected: 'gear.fill'
+                }
+            },
+            android: 'settings'
+        }
+    },
+    {
+        name: 'profile',
+        title: 'Profile',
+        icon: {
+            ios: {
+                sf: {
+                    default: 'person',
+                    selected: 'person.fill'
+                }
+            },
+            android: 'person'
+        }
+    }
+];
 
 export default function TabsLayout() {
-    const { colors } = useTheme();
+    // if (Platform.OS === 'ios') {
+    //     return <NativeTabsLayout tabs={tabs} />;
+    // }
 
-    return (
-        <NativeTabs
-            backgroundColor="transparent"
-            tintColor={colors.primary}
-            iconColor={{ default: colors.text, selected: colors.primary }}
-        >
-            <NativeTabs.Trigger name="home">
-                <NativeTabs.Trigger.Label>home</NativeTabs.Trigger.Label>
-                <NativeTabs.Trigger.Icon sf="house.fill" md="home" />
-            </NativeTabs.Trigger>
-            <NativeTabs.Trigger name="settings">
-                <NativeTabs.Trigger.Label>settings</NativeTabs.Trigger.Label>
-                <NativeTabs.Trigger.Icon sf="gear" md="settings" />
-            </NativeTabs.Trigger>
-            <NativeTabs.Trigger name="profile">
-                <NativeTabs.Trigger.Label>profile</NativeTabs.Trigger.Label>
-                <NativeTabs.Trigger.Icon sf="person.fill" md="account_circle" />
-            </NativeTabs.Trigger>
-        </NativeTabs>
-    );
+    return <JsTabsLayout tabs={tabs} />;
 }

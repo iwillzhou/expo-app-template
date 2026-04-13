@@ -1,14 +1,15 @@
 import { Fragment } from 'react';
 import { View } from 'react-native';
+import { useUniwind } from 'uniwind';
 import { Check } from 'lucide-react-native';
-import { useTheme } from 'src/hooks/use-theme';
 import { useTranslation } from 'react-i18next';
-import { ColorSchemeSetting } from 'src/stores/theme';
+import { ColorSchemeSetting, useThemeStore } from 'src/stores/theme';
 import { Button, Icon, Separator, Switch, Text } from 'src/components/ui';
 
 export default function DarkModeSetting() {
     const { t } = useTranslation('settings');
-    const { colorScheme, colorSchemeSetting, setColorSchemeSetting } = useTheme();
+    const { theme: colorScheme } = useUniwind();
+    const { colorSchemeSetting, setColorSchemeSetting } = useThemeStore();
 
     return (
         <View className="grid grid-flow-col p-4 gap-4">
