@@ -16,19 +16,6 @@ const tabs = [
         }
     },
     {
-        name: 'settings',
-        title: 'Settings',
-        icon: {
-            ios: {
-                sf: {
-                    default: 'gear',
-                    selected: 'gear.fill'
-                }
-            },
-            android: 'settings'
-        }
-    },
-    {
         name: 'profile',
         title: 'Profile',
         icon: {
@@ -44,9 +31,9 @@ const tabs = [
 ];
 
 export default function TabsLayout() {
-    // if (Platform.OS === 'ios') {
-    //     return <NativeTabsLayout tabs={tabs} />;
-    // }
+    if (Platform.OS === 'ios') {
+        return <NativeTabsLayout tabs={tabs} />;
+    }
 
     return <JsTabsLayout tabs={tabs} />;
 }

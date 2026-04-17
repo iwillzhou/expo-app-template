@@ -10,12 +10,13 @@ export function JsTabsLayout({ tabs }: { tabs: any[] }) {
 
     return (
         <Tabs
+            key={secondaryColor}
             screenOptions={{
                 headerShown: false,
                 tabBarStyle: {
                     position: 'absolute',
                     bottom: 21,
-                    marginHorizontal: (5 - tabCount) * 40,
+                    marginHorizontal: (5 - tabCount) * 20,
                     gap: 10,
                     // backgroundColor: '#FFFFFF', // 容器背景色（深色）
                     borderRadius: 40, // 整体圆角
